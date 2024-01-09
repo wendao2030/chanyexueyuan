@@ -30,6 +30,11 @@
 	    and time = #{time} GROUP BY classes.classes_name
     </select>
 
+    <select id="getAttendanceByWeek" resultMap="attendanceVO">
+        select SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate, time
+        from attendance where time &gt;= #{beginTime} and time &lt;= #{endTime} group by time order by time
+    </select>
+
     <resultMap id="attendanceVO" type="com.mhys.cyxy.domain.vo.AttendanceVO">
         <id column="should_attend_sum" jdbcType="INTEGER" property="shouldAttendSum" />
         <result column="real_attend_sum" jdbcType="INTEGER" property="realAttendSum" />

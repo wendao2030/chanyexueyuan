@@ -24,7 +24,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByTime")
     @ResponseBody
-    public AttendanceVO getAttendanceByTime(@RequestParam(value = "time") LocalDate time) throws ParseException {
+    public AttendanceVO getAttendanceByTime(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
         if(time == null){
             time = LocalDate.now();
         }
@@ -33,7 +33,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByGrade")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByGrade(@RequestParam(value = "time") LocalDate time) throws ParseException {
+    public List<AttendanceVO> getAttendanceByGrade(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
         if(time == null){
             time = LocalDate.now();
         }
@@ -42,7 +42,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByTutor")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByTutor(@RequestParam(value = "time") LocalDate time) throws ParseException {
+    public List<AttendanceVO> getAttendanceByTutor(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
         if(time == null){
             time = LocalDate.now();
         }
@@ -51,7 +51,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByLecturer")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByLecturer(@RequestParam(value = "time") LocalDate time) throws ParseException {
+    public List<AttendanceVO> getAttendanceByLecturer(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
         if(time == null){
             time = LocalDate.now();
         }
@@ -60,7 +60,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByClasses")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByClasses(@RequestParam(value = "time") LocalDate time) throws ParseException {
+    public List<AttendanceVO> getAttendanceByClasses(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
         if(time == null){
             time = LocalDate.now();
         }
@@ -69,9 +69,9 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByWeek")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByWeek(@RequestParam(value = "beginTime") LocalDate beginTime, @RequestParam(value = "endTime") LocalDate endTime) throws ParseException {
+    public List<AttendanceVO> getAttendanceByWeek(@RequestParam(value = "beginTime", required = false) LocalDate beginTime, @RequestParam(value = "endTime", required = false) LocalDate endTime) throws ParseException {
         if(beginTime == null){
-            beginTime = LocalDate.now();
+            beginTime = LocalDate.now().minusDays(7);
         }
         if(endTime == null){
             endTime = LocalDate.now();

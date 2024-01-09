@@ -24,37 +24,58 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByTime")
     @ResponseBody
-    public AttendanceVO getAttendanceByTime(@RequestParam(value = "time") String time) throws ParseException {
-        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
-        return attendanceService.getAttendanceByTime(fmt.parse(time));
+    public AttendanceVO getAttendanceByTime(@RequestParam(value = "time") LocalDate time) throws ParseException {
+        if(time == null){
+            time = LocalDate.now();
+        }
+        return attendanceService.getAttendanceByTime(time);
     }
 
     @RequestMapping("/getAttendanceByGrade")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByGrade(@RequestParam(value = "time") String time) throws ParseException {
-        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
-        return attendanceService.getAttendanceByGrade(fmt.parse(time));
+    public List<AttendanceVO> getAttendanceByGrade(@RequestParam(value = "time") LocalDate time) throws ParseException {
+        if(time == null){
+            time = LocalDate.now();
+        }
+        return attendanceService.getAttendanceByGrade(time);
     }
 
     @RequestMapping("/getAttendanceByTutor")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByTutor(@RequestParam(value = "time") String time) throws ParseException {
-        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
-        return attendanceService.getAttendanceByTutor(fmt.parse(time));
+    public List<AttendanceVO> getAttendanceByTutor(@RequestParam(value = "time") LocalDate time) throws ParseException {
+        if(time == null){
+            time = LocalDate.now();
+        }
+        return attendanceService.getAttendanceByTutor(time);
     }
 
     @RequestMapping("/getAttendanceByLecturer")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByLecturer(@RequestParam(value = "time") String time) throws ParseException {
-        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
-        return attendanceService.getAttendanceByLecturer(fmt.parse(time));
+    public List<AttendanceVO> getAttendanceByLecturer(@RequestParam(value = "time") LocalDate time) throws ParseException {
+        if(time == null){
+            time = LocalDate.now();
+        }
+        return attendanceService.getAttendanceByLecturer(time);
     }
 
     @RequestMapping("/getAttendanceByClasses")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByClasses(@RequestParam(value = "time") String time) throws ParseException {
-        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
-        return attendanceService.getAttendanceByClasses(fmt.parse(time));
+    public List<AttendanceVO> getAttendanceByClasses(@RequestParam(value = "time") LocalDate time) throws ParseException {
+        if(time == null){
+            time = LocalDate.now();
+        }
+        return attendanceService.getAttendanceByClasses(time);
     }
 
+    @RequestMapping("/getAttendanceByWeek")
+    @ResponseBody
+    public List<AttendanceVO> getAttendanceByWeek(@RequestParam(value = "beginTime") LocalDate beginTime, @RequestParam(value = "endTime") LocalDate endTime) throws ParseException {
+        if(beginTime == null){
+            beginTime = LocalDate.now();
+        }
+        if(endTime == null){
+            endTime = LocalDate.now();
+        }
+        return attendanceService.getAttendanceByWeek(beginTime, endTime);
+    }
 }

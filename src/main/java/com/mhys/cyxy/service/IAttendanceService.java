@@ -10,9 +10,10 @@ import java.util.List;
 
 public interface IAttendanceService {
 
-    AttendanceVO getAttendanceByTime(Date time);
-    List<AttendanceVO> getAttendanceByGrade(Date time);
-    List<AttendanceVO> getAttendanceByTutor(Date time);
-    List<AttendanceVO> getAttendanceByLecturer(Date time);
-    List<AttendanceVO> getAttendanceByClasses(Date time);
+    AttendanceVO getAttendanceByTime(LocalDate time);
+    List<AttendanceVO> getAttendanceByGrade(LocalDate time);
+    List<AttendanceVO> getAttendanceByTutor(LocalDate time);
+    List<AttendanceVO> getAttendanceByLecturer(LocalDate time);
+    List<AttendanceVO> getAttendanceByClasses(LocalDate time);
+    List<AttendanceVO> getAttendanceByWeek(LocalDate beginTime, LocalDate endTime);
 }

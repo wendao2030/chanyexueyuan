@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mhys.cyxy.mapper.AttendanceMapper">
-    <select id="getAttendanceByTime" parameterType="java.util.Date" resultMap="attendanceVO">
+    <select id="getAttendanceByTime" parameterType="java.time.LocalDate" resultMap="attendanceVO">
         select SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate, time
         from attendance where time = #{time}
     </select>
 
-    <select id="getAttendanceByGrade" parameterType="java.util.Date" resultMap="attendanceVO">
+    <select id="getAttendanceByGrade" parameterType="java.time.LocalDate" resultMap="attendanceVO">
         select grade.grade_id, grade_name, SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate, time
 	    from attendance, grade, classes where classes.classes_id = attendance.classes_id and
 	    classes.grade_id = grade.grade_id and time = #{time} GROUP BY grade.grade_name
     </select>
 
-    <select id="getAttendanceByTutor" parameterType="java.util.Date" resultMap="attendanceVO">
+    <select id="getAttendanceByTutor" parameterType="java.time.LocalDate" resultMap="attendanceVO">
         select tutor.tutor_id, tutor_name,SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate,
         time from attendance, tutor where attendance.tutor_id = tutor.tutor_id
         and time = #{time} GROUP BY tutor.tutor_name
     </select>
 
-    <select id="getAttendanceByLecturer" parameterType="java.util.Date" resultMap="attendanceVO">
+    <select id="getAttendanceByLecturer" parameterType="java.time.LocalDate" resultMap="attendanceVO">
         select lecturer.lecturer_id, lecturer_name, SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate,
          time from attendance, lecturer where attendance.lecturer_id = lecturer.lecturer_id
          and time = #{time} GROUP BY lecturer.lecturer_name
     </select>
 
-    <select id="getAttendanceByClasses" parameterType="java.util.Date" resultMap="attendanceVO">
+    <select id="getAttendanceByClasses" parameterType="java.time.LocalDate" resultMap="attendanceVO">
         select classes.classes_id, classes_name, SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate, time
 	    from attendance,classes where attendance.classes_id = classes.classes_id
 	    and time = #{time} GROUP BY classes.classes_name

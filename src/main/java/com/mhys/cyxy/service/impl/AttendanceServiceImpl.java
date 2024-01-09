@@ -17,28 +17,33 @@ public class AttendanceServiceImpl implements IAttendanceService {
     private AttendanceMapper attendanceMapper;
 
     @Override
-    public AttendanceVO getAttendanceByTime(Date time) {
+    public AttendanceVO getAttendanceByTime(LocalDate time) {
         return attendanceMapper.getAttendanceByTime(time);
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByGrade(Date time) {
+    public List<AttendanceVO> getAttendanceByGrade(LocalDate time) {
         return attendanceMapper.getAttendanceByGrade(time);
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByTutor(Date time) {
+    public List<AttendanceVO> getAttendanceByTutor(LocalDate time) {
         return attendanceMapper.getAttendanceByTutor(time);
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByLecturer(Date time) {
+    public List<AttendanceVO> getAttendanceByLecturer(LocalDate time) {
         return attendanceMapper.getAttendanceByLecturer(time);
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByClasses(Date time) {
+    public List<AttendanceVO> getAttendanceByClasses(LocalDate time) {
         return attendanceMapper.getAttendanceByClasses(time);
+    }
+
+    @Override
+    public List<AttendanceVO> getAttendanceByWeek(LocalDate beginTime, LocalDate endTime) {
+        return attendanceMapper.getAttendanceByWeek(beginTime, endTime);
     }
 
 

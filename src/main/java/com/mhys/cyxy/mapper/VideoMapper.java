@@ -16,6 +16,6 @@ public interface VideoMapper {
     public List<VideoVO> getVideoRateByGrade(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
 
     /*分科目查询moot观看率*/
-    public List<VideoVO> getVideoRateByCourse(@Param("gradeId") int gradeId);
+    public List<VideoVO> getVideoRateByCourse(@Param("gradeId") Integer gradeId);
 
 }

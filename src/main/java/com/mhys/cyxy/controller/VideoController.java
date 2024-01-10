@@ -51,7 +51,7 @@ public class VideoController {
 
     @ResponseBody
     @RequestMapping("/getVideoRateByCourse")
-    public List<VideoVO> getVideoRateByCourse(@RequestParam(value = "gradeId",required = true) int gradeId){
+    public List<VideoVO> getVideoRateByCourse(@RequestParam(value = "gradeId",required = true) Integer gradeId){
         List<VideoVO> list = videoService.getVideoRateByCourse(gradeId);
         list.stream().forEach(item->item.setVideoDayRange(VIDEO_DAY_RANGE));
         return list;

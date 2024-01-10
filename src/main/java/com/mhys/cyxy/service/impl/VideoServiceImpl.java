@@ -27,7 +27,7 @@ public class VideoServiceImpl implements IVideoService {
     }
 
     @Override
-    public List<VideoVO> getVideoRateByCourse(int gradeId) {
+    public List<VideoVO> getVideoRateByCourse(Integer gradeId) {
         return videoMapper.getVideoRateByCourse(gradeId);
     }
 }

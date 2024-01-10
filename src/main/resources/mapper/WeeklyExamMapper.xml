@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mhys.cyxy.mapper.WeeklyExamMapper">
+    <select id="getExamResultByClasses" resultMap="weeklyExamVO">
+        select classes_name,lecturer_name,tutor_name,course_name, (students_num-lt60)/students_num rate
+        from weekly_exam e,classes c, lecturer l, tutor t, course co
+        where e.classes_id = c.classes_id and e.lecturer_id = l.lecturer_id and e.tutor_id = t.tutor_id and e.course_id = co.course_id
+        and term_id= #{termId} and week_id= #{weekId};
+    </select>
+
+    <select id="getMaxTerm" resultType="java.lang.Integer">
+        select max(term_id) from weekly_exam;
+    </select>
+
+    <select id="getMaxWeek" resultType="java.lang.Integer">
+        select max(week_id) from weekly_exam;
+    </select>
+
+    <resultMap id="weeklyExamVO" type="com.mhys.cyxy.domain.vo.WeeklyExamVO">
+        <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+        <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
+        <result column="lecturer_name" jdbcType="VARCHAR" property="lecturerName" />
+        <result column="tutor_name" jdbcType="VARCHAR" property="tutorName" />
+        <result column="rate" jdbcType="FLOAT" property="rate" />
+    </resultMap>
+
+</mapper>

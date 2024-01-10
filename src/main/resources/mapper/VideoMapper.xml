@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mhys.cyxy.mapper.VideoMapper">
+    <select id="getAllVideoRate" resultMap="videoVO">
+        select avg(rate) avg from video where time &gt;= #{beginTime} and time &lt;= #{endTime} ;
+    </select>
+
+    <select id="getVideoRateByGrade" resultMap="videoVO">
+        select grade_name, avg(rate) avg from video, classes, grade where video.classes_id=classes.classes_id
+        and classes.grade_id = grade.grade_id and time &gt;= #{beginTime} and time &lt;= #{endTime}
+        GROUP BY grade.grade_name;
+    </select>
+
+    <select id="getVideoRateByCourse" parameterType="java.lang.Integer" resultMap="videoVO">
+        select course_name, avg(rate) avg from video, course, classes, grade where
+        video.course_id = course.course_id and video.classes_id = classes.classes_id
+        and classes.grade_id = grade.grade_id and grade.grade_id = #{gradeId}  GROUP BY course.course_name
+    </select>
+
+    <resultMap id="videoVO" type="com.mhys.cyxy.domain.vo.VideoVO">
+        <id column="video_id" jdbcType="INTEGER" property="videoId" />
+        <result column="course_id" jdbcType="INTEGER" property="courseId" />
+        <result column="chapter_id" jdbcType="INTEGER" property="chapterId" />
+        <result column="classes_id" jdbcType="INTEGER" property="classesId" />
+        <result column="rate" jdbcType="FLOAT" property="rate" />
+        <result column="time" jdbcType="DATE" property="time" />
+        <result column="avg" jdbcType="FLOAT" property="avg" />
+        <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+        <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
+    </resultMap>
+
+
+</mapper>

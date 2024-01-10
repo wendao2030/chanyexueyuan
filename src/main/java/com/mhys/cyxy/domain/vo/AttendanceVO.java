@@ -23,4 +23,6 @@ public class AttendanceVO{
     private int shouldAttendSum;
     private int realAttendSum;
     private float rate;
+
+    private int attendanceDayRange;
 }

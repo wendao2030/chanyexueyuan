@@ -19,6 +19,8 @@ import java.util.List;
 @Controller
 public class AttendanceController {
 
+    private final int ATTENDANCE_DAY_RANGE = 7;
+
     @Autowired
     private IAttendanceService attendanceService;
 
@@ -71,11 +73,13 @@ public class AttendanceController {
     @ResponseBody
     public List<AttendanceVO> getAttendanceByWeek(@RequestParam(value = "beginTime", required = false) LocalDate beginTime, @RequestParam(value = "endTime", required = false) LocalDate endTime) throws ParseException {
         if(beginTime == null){
-            beginTime = LocalDate.now().minusDays(7);
+            beginTime = LocalDate.now().minusDays(ATTENDANCE_DAY_RANGE);
         }
         if(endTime == null){
             endTime = LocalDate.now();
         }
-        return attendanceService.getAttendanceByWeek(beginTime, endTime);
+        List<AttendanceVO> list = attendanceService.getAttendanceByWeek(beginTime, endTime);
+        list.stream().forEach(item->item.setAttendanceDayRange(ATTENDANCE_DAY_RANGE));
+        return list;
     }
 }

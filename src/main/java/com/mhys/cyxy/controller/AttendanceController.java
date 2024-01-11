@@ -2,21 +2,17 @@ package com.mhys.cyxy.controller;
 
 import com.mhys.cyxy.domain.vo.AttendanceVO;
 import com.mhys.cyxy.service.IAttendanceService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
 @Controller
+@RequestMapping("/liuzhi")
 public class AttendanceController {
 
     private final int ATTENDANCE_DAY_RANGE = 7;

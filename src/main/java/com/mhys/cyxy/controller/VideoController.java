@@ -15,6 +15,7 @@ import java.util.List;
 
 @CrossOrigin
 @Controller
+@RequestMapping("/liuzhi")
 public class VideoController {
 
     private final int VIDEO_DAY_RANGE = 7;

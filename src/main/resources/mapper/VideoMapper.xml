@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mhys.cyxy.mapper.VideoMapper">
     <select id="getAllVideoRate" resultMap="videoVO">
-        select avg(rate) avg from video where time &gt;= #{beginTime} and time &lt;= #{endTime} ;
+        select avg(rate) avg from video where time &gt;= #{beginTime} and time &lt; #{endTime} ;
     </select>
 
     <select id="getVideoRateByGrade" resultMap="videoVO">
         select grade_name, avg(rate) avg from video, classes, grade where video.classes_id=classes.classes_id
-        and classes.grade_id = grade.grade_id and time &gt;= #{beginTime} and time &lt;= #{endTime}
+        and classes.grade_id = grade.grade_id and time &gt;= #{beginTime} and time &lt; #{endTime}
         GROUP BY grade.grade_name;
     </select>
 

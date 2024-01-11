@@ -17,6 +17,7 @@ import java.util.List;
 
 @CrossOrigin
 @Controller
+@RequestMapping("/liuzhi")
 public class WeeklyExamController {
     @Autowired
     private IWeeklyExamService weeklyExamService;

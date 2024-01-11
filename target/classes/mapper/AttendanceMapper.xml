@@ -31,8 +31,9 @@
     </select>
 
     <select id="getAttendanceByWeek" resultMap="attendanceVO">
-        select SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate, time
-        from attendance where time &gt;= #{beginTime} and time &lt;= #{endTime} group by time order by time
+        select SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate, time, grade_name, g.grade_id
+	    from attendance a, classes c, grade g where a.classes_id = c.classes_id and c.grade_id = g.grade_id
+	    and time &gt;= #{beginTime} and time &lt; #{endTime} group by grade_name, time order by g.grade_name,time
     </select>
 
     <resultMap id="attendanceVO" type="com.mhys.cyxy.domain.vo.AttendanceVO">

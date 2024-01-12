@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mhys.cyxy.mapper.PraticalTaskMapper">
+    <select id="getTaskResultByClasses" resultMap="taskResultVO">
+        select  sum(p.real_fulfil_num)/sum(p.should_fulfil_num) rate, c.classes_name, g.grade_name from pratical_task p, classes c, grade g
+	        where p.classes_id = c.classes_id and c.grade_id = g.grade_id
+		        and p.term_id = #{termId} and p.week_id = #{weekId}
+		        GROUP BY classes_name;
+    </select>
+
+    <select id="getMaxTermId" resultType="java.lang.Integer">
+        select MAX(term_id) from pratical_task
+    </select>
+
+    <select id="getMaxWeekId" resultType="java.lang.Integer">
+        select MAX(week_id) from pratical_task
+    </select>
+
+    <resultMap id="taskResultVO" type="com.mhys.cyxy.domain.vo.PracticalTaskVO">
+        <result column="rate" jdbcType="FLOAT" property="rate" />
+        <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
+        <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
+    </resultMap>
+
+
+</mapper>

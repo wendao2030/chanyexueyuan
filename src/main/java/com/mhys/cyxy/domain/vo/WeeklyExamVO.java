@@ -12,11 +12,11 @@ public class WeeklyExamVO {
     private String tutorName;
     private float rate;
 
-    private float lt60Rate;
-    private float gt60Lt70Rate;
-    private float gt70Lt80Rate;
-    private float gt80Lt90Rate;
-    private float gt90Lt100Rate;
+    private int lt60;
+    private int gt60Lt70;
+    private int gt70Lt80;
+    private int gt80Lt90;
+    private int gt90Lt100;
 
     private int ExamWeekRange;
 }

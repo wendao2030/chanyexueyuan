@@ -19,6 +19,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/liuzhi")
 public class WeeklyExamController {
+
+    private final int Exam_WEEK_RANGE = 7;
+
     @Autowired
     private IWeeklyExamService weeklyExamService;
 
@@ -28,4 +31,11 @@ public class WeeklyExamController {
         return weeklyExamService.getExamResultByClasses(termId, weekId);
     }
 
+    @RequestMapping("/getExamResultByWeek")
+    @ResponseBody
+    public List<WeeklyExamVO> getExamResultByWeek(@RequestParam(value = "beginWeekId", required = false) Integer beginWeekId, @RequestParam(value = "endWeekId", required = false) Integer endWeekId) {
+        List<WeeklyExamVO> list = weeklyExamService.getExamResultByWeek(beginWeekId, endWeekId);
+        list.stream().forEach(item->item.setExamWeekRange(Exam_WEEK_RANGE));
+        return list;
+    }
 }

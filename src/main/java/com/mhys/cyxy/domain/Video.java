@@ -12,4 +12,6 @@ public class Video {
     private int classesId;
     private float rate;
     private LocalDate time;
+    private int shouldWatchNum;
+    private int realWatchNum;
 }

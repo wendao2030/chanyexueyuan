@@ -9,7 +9,10 @@ import java.util.List;
 
 @Mapper
 public interface WeeklyExamMapper {
-    public List<WeeklyExamVO> getExamResultByClasses(@Param("termId") int termId, @Param("weekId") int weekId);
+    public List<WeeklyExamVO> getExamResultByClasses(@Param("termId") Integer termId, @Param("weekId") Integer weekId);
+    public List<WeeklyExamVO> getExamResultByWeek(@Param("beginWeekId") Integer beginWeekId, @Param("endWeekId") Integer endWeekId);
+
     public int getMaxTerm();
     public int getMaxWeek();
+
 }

@@ -16,7 +16,7 @@ public class WeeklyExam {
     private int gt60Lt70;
     private int gt70Lt80;
     private int gt80Lt90;
-    private int gt0Lt100;
+    private int gt90Lt100;
 
     private int studentsNum;
 }

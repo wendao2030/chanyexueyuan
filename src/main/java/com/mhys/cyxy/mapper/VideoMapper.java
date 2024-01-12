@@ -12,6 +12,9 @@ public interface VideoMapper {
     /*查询本周总体moot观看率*/
     public VideoVO getAllVideoRate(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
 
+    /*按班级查看本周moot观看率*/
+    public List<VideoVO> getVideoRateByClasses(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
+
     /*分年级查询本周moot观看率*/
     public List<VideoVO> getVideoRateByGrade(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
 

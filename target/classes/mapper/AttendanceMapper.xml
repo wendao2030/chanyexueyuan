@@ -50,6 +50,4 @@
         <result column="lecturer_name" jdbcType="VARCHAR" property="lecturerName" />
         <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
     </resultMap>
-
-
 </mapper>

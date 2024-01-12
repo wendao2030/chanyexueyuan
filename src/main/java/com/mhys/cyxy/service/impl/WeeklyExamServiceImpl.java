@@ -24,4 +24,16 @@ public class WeeklyExamServiceImpl implements IWeeklyExamService {
         }
         return weeklyExamMapper.getExamResultByClasses(termId, weekId);
     }
+
+    @Override
+    public List<WeeklyExamVO> getExamResultByWeek(Integer beginWeekId, Integer endWeekId) {
+        if (endWeekId == null){
+            endWeekId = weeklyExamMapper.getMaxWeek();
+        }
+        if(beginWeekId == null){
+            beginWeekId = endWeekId - 7;
+        }
+
+        return weeklyExamMapper.getExamResultByWeek(beginWeekId,endWeekId);
+    }
 }

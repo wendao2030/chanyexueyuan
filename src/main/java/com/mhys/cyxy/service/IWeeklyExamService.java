@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IWeeklyExamService {
     public List<WeeklyExamVO> getExamResultByClasses(Integer termId, Integer weekId);
+
+    public List<WeeklyExamVO> getExamResultByWeek(Integer beginWeekId, Integer endWeekId);
 }

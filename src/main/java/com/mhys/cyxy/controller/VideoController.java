@@ -37,6 +37,20 @@ public class VideoController {
     }
 
     @ResponseBody
+    @RequestMapping("/getVideoRateByClasses")
+    public List<VideoVO> getVideoRateByClasses(@RequestParam(value = "beginTime",required = false) LocalDate beginTime, @RequestParam(value = "endTime",required = false) LocalDate endTime){
+        if(beginTime == null){
+            beginTime = LocalDate.now().minusDays(VIDEO_DAY_RANGE);
+        }
+        if (endTime == null){
+            endTime = LocalDate.now();
+        }
+        List<VideoVO> list = videoService.getVideoRateByClasses(beginTime, endTime);
+        list.stream().forEach(item->item.setVideoDayRange(VIDEO_DAY_RANGE));
+        return list;
+    }
+
+    @ResponseBody
     @RequestMapping("/getVideoRateByGrade")
     public List<VideoVO> getVideoRateByGrade(@RequestParam(value = "beginTime",required = false) LocalDate beginTime, @RequestParam(value = "endTime",required = false) LocalDate endTime){
         if(beginTime == null){

@@ -22,6 +22,11 @@ public class VideoServiceImpl implements IVideoService {
     }
 
     @Override
+    public List<VideoVO> getVideoRateByClasses(LocalDate beginTime, LocalDate endTime) {
+        return videoMapper.getVideoRateByClasses(beginTime, endTime);
+    }
+
+    @Override
     public List<VideoVO> getVideoRateByGrade(LocalDate beginTime, LocalDate endTime) {
         return videoMapper.getVideoRateByGrade(beginTime, endTime);
     }

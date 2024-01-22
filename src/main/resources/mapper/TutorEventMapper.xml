@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mhys.cyxy.mapper.TutorEventMapper">
+    <select id="getCountByTutor" resultMap="tutorEventResultVO">
+        select t.tutor_name, count(e.tutor_event_name) event_num
+            from tutor t left join tutor_event e on e.tutor_id = t.tutor_id
+            group by t.tutor_name
+    </select>
+
+    <select id="getAllCount" resultMap="tutorEventResultVO">
+        select count(*) event_num from tutor_event;
+    </select>
+
+    <resultMap id="tutorEventResultVO" type="com.mhys.cyxy.domain.vo.TutorEventVO">
+        <result column="tutor_name" jdbcType="VARCHAR" property="tutorName" />
+        <result column="event_num" jdbcType="INTEGER" property="eventNum" />
+    </resultMap>
+
+</mapper>

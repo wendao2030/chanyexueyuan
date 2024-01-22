@@ -20,6 +20,10 @@ public interface AttendanceMapper {
     public List<AttendanceVO> getAttendanceByLecturer(@Param("time") LocalDate time);
     /*按班级显示当日出勤*/
     public List<AttendanceVO> getAttendanceByClasses(@Param("time") LocalDate time);
-    /*统计过去一周每日总出勤*/
+    /*统计最近一周每日总出勤*/
     public List<AttendanceVO> getAttendanceByWeek(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
+    /*统计最近一周总出勤率*/
+    public AttendanceVO getAllAttendance(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
+    /*查询最近的日期*/
+    public Date getLastDay();
 }

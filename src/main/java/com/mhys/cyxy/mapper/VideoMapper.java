@@ -9,16 +9,18 @@ import java.util.List;
 
 @Mapper
 public interface VideoMapper {
-    /*查询本周总体moot观看率*/
-    public VideoVO getAllVideoRate(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
+    /*查询一周总体moot观看率*/
+    public VideoVO getAllVideoRate(@Param("termId") Integer termId, @Param("weekId") Integer weekId);
 
-    /*按班级查看本周moot观看率*/
-    public List<VideoVO> getVideoRateByClasses(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
+    /*按班级查看一周moot观看率*/
+    public List<VideoVO> getVideoRateByClasses(@Param("termId") Integer termId, @Param("weekId") Integer weekId);
 
-    /*分年级查询本周moot观看率*/
-    public List<VideoVO> getVideoRateByGrade(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
+    /*分年级查询一周moot观看率*/
+    public List<VideoVO> getVideoRateByGrade(@Param("termId") Integer termId, @Param("weekId") Integer weekId);
 
     /*分科目查询moot观看率*/
     public List<VideoVO> getVideoRateByCourse(@Param("gradeId") Integer gradeId);
 
+    public int getMaxTermId();
+    public Integer getMaxWeekId();
 }

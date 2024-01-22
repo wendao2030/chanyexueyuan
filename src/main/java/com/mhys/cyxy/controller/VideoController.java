@@ -18,49 +18,27 @@ import java.util.List;
 @RequestMapping("/liuzhi")
 public class VideoController {
 
-    private final int VIDEO_DAY_RANGE = 7;
-
     @Autowired
     private IVideoService videoService;
 
     @ResponseBody
     @RequestMapping("/getAllVideoRate")
-    public VideoVO getAllVideoRate(@RequestParam(value = "beginTime",required = false) LocalDate beginTime,@RequestParam(value = "endTime",required = false) LocalDate endTime){
-        if(beginTime == null){
-            beginTime = LocalDate.now().minusDays(VIDEO_DAY_RANGE);
-        }
-        if (endTime == null){
-            endTime = LocalDate.now();
-        }
-        VideoVO vo = videoService.getAllVideoRate(beginTime, endTime);
+    public VideoVO getAllVideoRate(@RequestParam(value = "termId", required = false) Integer termId, @RequestParam(value = "weekId", required = false) Integer weekId){
+        VideoVO vo = videoService.getAllVideoRate(termId, weekId);
         return  vo;
     }
 
     @ResponseBody
     @RequestMapping("/getVideoRateByClasses")
-    public List<VideoVO> getVideoRateByClasses(@RequestParam(value = "beginTime",required = false) LocalDate beginTime, @RequestParam(value = "endTime",required = false) LocalDate endTime){
-        if(beginTime == null){
-            beginTime = LocalDate.now().minusDays(VIDEO_DAY_RANGE);
-        }
-        if (endTime == null){
-            endTime = LocalDate.now();
-        }
-        List<VideoVO> list = videoService.getVideoRateByClasses(beginTime, endTime);
-        list.stream().forEach(item->item.setVideoDayRange(VIDEO_DAY_RANGE));
+    public List<VideoVO> getVideoRateByClasses(@RequestParam(value = "termId", required = false) Integer termId, @RequestParam(value = "weekId", required = false) Integer weekId){
+        List<VideoVO> list = videoService.getVideoRateByClasses(termId, weekId);
         return list;
     }
 
     @ResponseBody
     @RequestMapping("/getVideoRateByGrade")
-    public List<VideoVO> getVideoRateByGrade(@RequestParam(value = "beginTime",required = false) LocalDate beginTime, @RequestParam(value = "endTime",required = false) LocalDate endTime){
-        if(beginTime == null){
-            beginTime = LocalDate.now().minusDays(VIDEO_DAY_RANGE);
-        }
-        if (endTime == null){
-            endTime = LocalDate.now();
-        }
-        List<VideoVO> list = videoService.getVideoRateByGrade(beginTime, endTime);
-        list.stream().forEach(item->item.setVideoDayRange(VIDEO_DAY_RANGE));
+    public List<VideoVO> getVideoRateByGrade(@RequestParam(value = "termId", required = false) Integer termId, @RequestParam(value = "weekId", required = false) Integer weekId){
+        List<VideoVO> list = videoService.getVideoRateByGrade(termId, weekId);
         return list;
     }
 
@@ -68,7 +46,6 @@ public class VideoController {
     @RequestMapping("/getVideoRateByCourse")
     public List<VideoVO> getVideoRateByCourse(@RequestParam(value = "gradeId",required = true) Integer gradeId){
         List<VideoVO> list = videoService.getVideoRateByCourse(gradeId);
-        list.stream().forEach(item->item.setVideoDayRange(VIDEO_DAY_RANGE));
         return list;
     }
 }

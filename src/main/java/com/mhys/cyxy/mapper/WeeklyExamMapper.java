@@ -11,7 +11,7 @@ import java.util.List;
 public interface WeeklyExamMapper {
     public List<WeeklyExamVO> getExamResultByClasses(@Param("termId") Integer termId, @Param("weekId") Integer weekId);
     public List<WeeklyExamVO> getExamResultByWeek(@Param("beginWeekId") Integer beginWeekId, @Param("endWeekId") Integer endWeekId);
-
+    public WeeklyExamVO getAllExamResult(@Param("termId") Integer termId, @Param("weekId") Integer weekId);
     public int getMaxTerm();
     public int getMaxWeek();
 

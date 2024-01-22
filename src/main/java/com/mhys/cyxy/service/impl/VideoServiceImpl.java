@@ -17,18 +17,36 @@ public class VideoServiceImpl implements IVideoService {
     private VideoMapper videoMapper;
 
     @Override
-    public VideoVO getAllVideoRate(LocalDate beginTime, LocalDate endTime) {
-        return videoMapper.getAllVideoRate(beginTime,endTime);
+    public VideoVO getAllVideoRate(Integer termId, Integer weekId) {
+        if(termId == null){
+            termId = videoMapper.getMaxTermId();
+        }
+        if(weekId == null){
+            weekId = videoMapper.getMaxWeekId();
+        }
+        return videoMapper.getAllVideoRate(termId,weekId);
     }
 
     @Override
-    public List<VideoVO> getVideoRateByClasses(LocalDate beginTime, LocalDate endTime) {
-        return videoMapper.getVideoRateByClasses(beginTime, endTime);
+    public List<VideoVO> getVideoRateByClasses(Integer termId, Integer weekId) {
+        if(termId == null){
+            termId = videoMapper.getMaxTermId();
+        }
+        if(weekId == null){
+            weekId = videoMapper.getMaxWeekId();
+        }
+        return videoMapper.getVideoRateByClasses(termId,weekId);
     }
 
     @Override
-    public List<VideoVO> getVideoRateByGrade(LocalDate beginTime, LocalDate endTime) {
-        return videoMapper.getVideoRateByGrade(beginTime, endTime);
+    public List<VideoVO> getVideoRateByGrade(Integer termId, Integer weekId) {
+        if(termId == null){
+            termId = videoMapper.getMaxTermId();
+        }
+        if(weekId == null){
+            weekId = videoMapper.getMaxWeekId();
+        }
+        return videoMapper.getVideoRateByGrade(termId,weekId);
     }
 
     @Override

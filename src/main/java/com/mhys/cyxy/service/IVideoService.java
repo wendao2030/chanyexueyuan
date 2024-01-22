@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface IVideoService {
-    public VideoVO getAllVideoRate(LocalDate beginTime, LocalDate endTime);
-    public List<VideoVO> getVideoRateByClasses(LocalDate beginTime, LocalDate endTime);
-    public List<VideoVO> getVideoRateByGrade(LocalDate beginTime, LocalDate endTime);
+    public VideoVO getAllVideoRate(Integer termId, Integer weekId);
+    public List<VideoVO> getVideoRateByClasses(Integer termId, Integer weekId);
+    public List<VideoVO> getVideoRateByGrade(Integer termId, Integer weekId);
     public List<VideoVO> getVideoRateByCourse(Integer gradeId);
 }

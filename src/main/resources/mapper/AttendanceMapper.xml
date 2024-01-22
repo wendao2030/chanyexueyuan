@@ -46,6 +46,15 @@
 	            group by grade_name, time order by g.grade_name,time
     </select>
 
+    <select id="getAllAttendance" parameterType="java.time.LocalDate" resultMap="attendanceVO">
+        select SUM(should_attend_num) should_attend_sum, SUM(real_attend_num) real_attend_sum, SUM(real_attend_num)/SUM(should_attend_num) rate
+	    from attendance where time &gt; #{beginTime} and time &lt;= #{endTime}
+    </select>
+
+    <select id="getLastDay" resultType="java.util.Date">
+        select MAX(time) from attendance;
+    </select>
+
     <resultMap id="attendanceVO" type="com.mhys.cyxy.domain.vo.AttendanceVO">
         <id column="should_attend_sum" jdbcType="INTEGER" property="shouldAttendSum" />
         <result column="real_attend_sum" jdbcType="INTEGER" property="realAttendSum" />

@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mhys.cyxy.mapper.VideoMapper">
     <select id="getAllVideoRate" resultMap="videoVO">
-        select sum(real_watch_num)/sum(should_watch_num) rate  from video where time &gt;= #{beginTime} and time &lt; #{endTime} ;
+        select sum(real_watch_num)/sum(should_watch_num) rate  from video
+            where term_id = #{termId} and week_id = #{weekId} ;
     </select>
 
     <select id="getVideoRateByClasses" resultMap="videoVO">
         select g.grade_name,c.classes_name, sum(real_watch_num)/sum(should_watch_num) rate
             from video v, classes c, grade g
             where v.classes_id=c.classes_id and c.grade_id = g.grade_id
-            and time &gt;= #{beginTime} and time &lt; #{endTime}
+            and term_id = #{termId} and week_id = #{weekId}
             GROUP BY g.grade_name, c.classes_name;
     </select>
 
@@ -17,7 +18,7 @@
         select g.grade_name, sum(real_watch_num) real_watch_num, sum(should_watch_num) should_watch_num, sum(real_watch_num)/sum(should_watch_num) rate
             from video v, classes c, grade g
             where v.classes_id=c.classes_id and c.grade_id = g.grade_id
-                and time &gt;= #{beginTime} and time &lt; #{endTime}
+                and term_id = #{termId} and week_id = #{weekId}
                 GROUP BY g.grade_name;
     </select>
 
@@ -27,13 +28,22 @@
         and classes.grade_id = grade.grade_id and grade.grade_id = #{gradeId}  GROUP BY course.course_name
     </select>
 
+    <select id="getMaxTermId" resultType="java.lang.Integer">
+        select MAX(term_id) from pratical_task;
+    </select>
+
+    <select id="getMaxWeekId" resultType="java.lang.Integer">
+        select MAX(week_id) from pratical_task where term_id = (select MAX(term_id) from pratical_task);
+    </select>
+
     <resultMap id="videoVO" type="com.mhys.cyxy.domain.vo.VideoVO">
         <id column="video_id" jdbcType="INTEGER" property="videoId" />
         <result column="course_id" jdbcType="INTEGER" property="courseId" />
         <result column="chapter_id" jdbcType="INTEGER" property="chapterId" />
         <result column="classes_id" jdbcType="INTEGER" property="classesId" />
         <result column="rate" jdbcType="FLOAT" property="rate" />
-        <result column="time" jdbcType="DATE" property="time" />
+        <result column="term_name" jdbcType="VARCHAR" property="termName" />
+        <result column="week_name" jdbcType="VARCHAR" property="weekName" />
         <result column="real_watch_num" jdbcType="INTEGER" property="realWatchNum" />
         <result column="should_watch_num" jdbcType="INTEGER" property="shouldWatchNum" />
         <result column="course_name" jdbcType="VARCHAR" property="courseName" />

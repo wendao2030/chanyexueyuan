@@ -2,20 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mhys.cyxy.mapper.WeeklyExamMapper">
     <select id="getExamResultByClasses" resultMap="weeklyExamVO">
-        select w.week_name, classes_name,lecturer_name,tutor_name,course_name,lt60,gt60_lt70,gt70_lt80,gt80_lt90,gt90_lt100
-            from weekly_exam e,classes c, lecturer l, tutor t, course co, week w
+        select w.week_name,grade_name, classes_name,lecturer_name,tutor_name,course_name,
+            lt60/students_num lt60_rate, gt60_lt70/students_num gt60_lt70_rate,
+            gt70_lt80/students_num gt70_lt80_rate, gt80_lt90/students_num gt80_lt90_rate,
+            gt90_lt100/students_num gt90_lt100_rate
+            from weekly_exam e,grade g, classes c, lecturer l, tutor t, course co, week w
             where e.classes_id = c.classes_id and e.lecturer_id = l.lecturer_id
-                and e.tutor_id = t.tutor_id and e.course_id = co.course_id and e.week_id = w.week_id
+                and e.tutor_id = t.tutor_id and e.course_id = co.course_id and e.week_id = w.week_id and g.grade_id = c.grade_id
                 and term_id= #{termId} and e.week_id= #{weekId};
     </select>
 
     <select id="getExamResultByWeek" resultMap="weeklyExamVO">
-        select  g.grade_name, w.week_name, (students_num-lt60)/students_num rate
-	        from weekly_exam e, week w, classes c, grade g, lecturer l, tutor t
-	        where e.week_id = w.week_id and e.classes_id = c.classes_id and c.grade_id = g.grade_id
-		        and e.lecturer_id = l.lecturer_id and e.tutor_id = t.tutor_id
-		        and e.week_id &gt;= #{beginWeekId} and e.week_id &lt; #{endWeekId}
-		        order by g.grade_name, w.week_name
+        select  g.grade_name, w.week_name, sum(students_num-lt60)/sum(students_num) rate
+            from weekly_exam e, week w, classes c, grade g, lecturer l, tutor t
+            where e.week_id = w.week_id and e.classes_id = c.classes_id and c.grade_id = g.grade_id
+                and e.lecturer_id = l.lecturer_id and e.tutor_id = t.tutor_id
+                and e.term_id = (select max(term_id) from weekly_exam)
+                and e.week_id &gt;= #{beginWeekId} and e.week_id &lt; #{endWeekId}
+                group by grade_name, week_name
+    </select>
+
+    <select id="getAllExamResult" resultMap="weeklyExamVO">
+        select sum(students_num-lt60)/sum(students_num) rate
+	        from weekly_exam
+	        where term_id = #{termId} and week_id = #{weekId}
     </select>
 
     <select id="getMaxTerm" resultType="java.lang.Integer">
@@ -23,7 +33,7 @@
     </select>
 
     <select id="getMaxWeek" resultType="java.lang.Integer">
-        select max(week_id) from weekly_exam;
+        select max(week_id) from weekly_exam where term_id = (select max(term_id) from weekly_exam);
     </select>
 
     <resultMap id="weeklyExamVO" type="com.mhys.cyxy.domain.vo.WeeklyExamVO">
@@ -34,11 +44,11 @@
         <result column="lecturer_name" jdbcType="VARCHAR" property="lecturerName" />
         <result column="tutor_name" jdbcType="VARCHAR" property="tutorName" />
         <result column="rate" jdbcType="FLOAT" property="rate" />
-        <result column="lt60" jdbcType="FLOAT" property="lt60" />
-        <result column="gt60_lt70" jdbcType="FLOAT" property="gt60Lt70" />
-        <result column="gt70_lt80" jdbcType="FLOAT" property="gt70Lt80" />
-        <result column="gt80_lt90" jdbcType="FLOAT" property="gt80Lt90" />
-        <result column="gt90_lt100" jdbcType="FLOAT" property="gt90Lt100" />
+        <result column="lt60_rate" jdbcType="FLOAT" property="lt60Rate" />
+        <result column="gt60_lt70_rate" jdbcType="FLOAT" property="gt60Lt70Rate" />
+        <result column="gt70_lt80_rate" jdbcType="FLOAT" property="gt70Lt80Rate" />
+        <result column="gt80_lt90_rate" jdbcType="FLOAT" property="gt80Lt90Rate" />
+        <result column="gt90_lt100_rate" jdbcType="FLOAT" property="gt90Lt100Rate" />
 
     </resultMap>
 

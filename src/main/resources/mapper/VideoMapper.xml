@@ -36,6 +36,80 @@
         select MAX(week_id) from pratical_task where term_id = (select MAX(term_id) from pratical_task);
     </select>
 
+    <select id="selectAllVideoByPage" parameterType="com.mhys.cyxy.domain.dto.VideoDTO" resultMap="videoVO">
+        select v.video_id, v.is_able, v.should_watch_num, v.real_watch_num, c.course_name, cp.chapter_name, t.term_name, w.week_name, cls.classes_name, g.grade_name
+	        from video v, course c, chapter cp, term t, `week` w, classes cls, grade g
+	        where v.course_id = c.course_id and v.chapter_id = cp.chaper_id and v.term_id = t.term_id
+	            and v.week_id = w.week_id and v.classes_id = cls.classes_id and g.grade_id = cls.grade_id
+		    <if test="termId != null">
+                and v.term_id = #{termId}
+            </if>
+            <if test="weekId != null">
+                and v.week_id = #{weekId}
+            </if>
+            <if test="classesId != null">
+                and v.classes_id = #{classesId}
+            </if>
+            <if test="courseId != null">
+                and v.course_id = #{courseId}
+            </if>
+            <if test="gradeId != null">
+                and g.grade_id = #{gradeId}
+            </if>
+            <if test="termName != null">
+                and t.term_name like '%${termName}%'
+            </if>
+            <if test="weekName != null">
+                and w.week_name like '%${weekName}%'
+            </if>
+            <if test="classesName != null">
+                and cls.classes_name like '%${classesName}%'
+            </if>
+            <if test="courseName != null">
+                and c.course_name like '%${courseName}%'
+            </if>
+            <if test="gradeName != null">
+                and c.grade_name like '%${gradeName}%'
+            </if>
+		    order by v.video_id desc
+    </select>
+
+    <insert id="addVideo" useGeneratedKeys="true" keyProperty="videoId" parameterType="com.mhys.cyxy.domain.Video">
+        INSERT INTO video(course_id, chapter_id,classes_id,term_id,week_id,should_watch_num,real_watch_num)
+	        VALUES(#{courseId},#{chapterId},#{classesId},#{termId},#{weekId},#{shouldWatchNum},#{realWatchNum})
+    </insert>
+
+    <select id="selectVideoById" parameterType="java.lang.Integer" resultMap="videoVO">
+        select * from video where video_id = #{videoId};
+    </select>
+
+    <update id="updateVideo" parameterType="com.mhys.cyxy.domain.Video">
+        update video set
+        <if test="courseId != 0">
+            course_id = #{courseId},
+        </if>
+        <if test="chapterId != 0">
+            chapter_id = #{chapterId},
+        </if>
+        <if test="classesId != 0">
+            classes_id = #{classesId},
+        </if>
+        <if test="termId != 0">
+            term_id = #{termId},
+        </if>
+        <if test="weekId != 0">
+            week_id = #{weekId},
+        </if>
+        <if test="shouldWatchNum != 0">
+            should_watch_num = #{shouldWatchNum},
+        </if>
+        <if test="realWatchNum != 0">
+            real_watch_num = #{realWatchNum},
+        </if>
+            is_able = #{able}
+        where video_id = #{videoId}
+    </update>
+
     <resultMap id="videoVO" type="com.mhys.cyxy.domain.vo.VideoVO">
         <id column="video_id" jdbcType="INTEGER" property="videoId" />
         <result column="course_id" jdbcType="INTEGER" property="courseId" />
@@ -47,8 +121,10 @@
         <result column="real_watch_num" jdbcType="INTEGER" property="realWatchNum" />
         <result column="should_watch_num" jdbcType="INTEGER" property="shouldWatchNum" />
         <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+        <result column="chapter_name" jdbcType="VARCHAR" property="chapterName" />
         <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
         <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
+        <result column="is_able" jdbcType="TINYINT" property="able" />
     </resultMap>
 
 

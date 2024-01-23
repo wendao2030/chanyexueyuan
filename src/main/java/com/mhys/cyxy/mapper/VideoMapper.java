@@ -1,5 +1,7 @@
 package com.mhys.cyxy.mapper;
 
+import com.mhys.cyxy.domain.Video;
+import com.mhys.cyxy.domain.dto.VideoDTO;
 import com.mhys.cyxy.domain.vo.VideoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +25,16 @@ public interface VideoMapper {
 
     public int getMaxTermId();
     public Integer getMaxWeekId();
+
+    /*条件分页查询所有moot观看情况*/
+    List<VideoVO> selectAllVideoByPage(VideoDTO videoDTO);
+
+    /*插入一条记录*/
+    public int addVideo(Video video);
+
+    /*根据id查询video*/
+    VideoVO selectVideoById(@Param("videoId") Integer videoId);
+
+    /*修改*/
+    public int updateVideo(Video video);
 }

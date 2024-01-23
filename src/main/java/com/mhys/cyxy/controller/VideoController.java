@@ -1,14 +1,14 @@
 package com.mhys.cyxy.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.mhys.cyxy.domain.ResponseData;
 import com.mhys.cyxy.domain.Video;
+import com.mhys.cyxy.domain.dto.VideoDTO;
 import com.mhys.cyxy.domain.vo.VideoVO;
 import com.mhys.cyxy.service.IVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -48,4 +48,21 @@ public class VideoController {
         List<VideoVO> list = videoService.getVideoRateByCourse(gradeId);
         return list;
     }
+
+    /*条件分页查询所有moot观看情况，按照时间降序*/
+    @ResponseBody
+    @PostMapping("/selectAllVideoByPage")
+    public ResponseData<PageInfo<VideoVO>> selectAllVideoByPage(@RequestBody VideoDTO videoDTO){
+        PageInfo<VideoVO> pageInfo = videoService.selectAllVideoByPage(videoDTO);
+        return new ResponseData<>(pageInfo);
+    }
+
+    /*新增和修改一条记录*/
+    @ResponseBody
+    @PostMapping("/addVideo")
+    public ResponseData<Object> selectAllVideoByPage(@RequestBody Video video){
+        boolean result = videoService.addVideo(video);
+        return new ResponseData<>(result);
+    }
+
 }

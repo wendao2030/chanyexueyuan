@@ -1,5 +1,6 @@
 package com.mhys.cyxy.controller;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.mhys.cyxy.domain.vo.PracticalTaskVO;
 import com.mhys.cyxy.service.ITotalStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,9 @@ public class TotalStatisticsController {
         return totalStatisticsService.getTotalStatistics();
     }
 
+    @RequestMapping("/getDicMsg")
+    @ResponseBody
+    public JSONObject getDicMsg(){
+        return totalStatisticsService.getDicMsg();
+    }
 }

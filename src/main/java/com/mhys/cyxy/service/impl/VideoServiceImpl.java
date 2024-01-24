@@ -78,5 +78,15 @@ public class VideoServiceImpl implements IVideoService {
         return videoMapper.addVideo(video) >0;
     }
 
+    @Override
+    public boolean deleteVideoById(Integer videoId) {
+        return videoMapper.deleteVideoById(videoId) > 0;
+    }
+
+    @Override
+    public VideoVO selectVideoById(Integer videoId) {
+        return videoMapper.selectVideoById(videoId);
+    }
+
 
 }

@@ -37,9 +37,10 @@
     </select>
 
     <select id="selectAllVideoByPage" parameterType="com.mhys.cyxy.domain.dto.VideoDTO" resultMap="videoVO">
-        select v.video_id, v.is_able, v.should_watch_num, v.real_watch_num, c.course_name, cp.chapter_name, t.term_name, w.week_name, cls.classes_name, g.grade_name
+        select v.video_id, v.is_able, c.course_id, cp.chapter_id, cls.classes_id, t.term_id, w.week_id, g.grade_id,
+         v.should_watch_num, v.real_watch_num, c.course_name, cp.chapter_name, t.term_name, w.week_name, cls.classes_name, g.grade_name
 	        from video v, course c, chapter cp, term t, `week` w, classes cls, grade g
-	        where v.course_id = c.course_id and v.chapter_id = cp.chaper_id and v.term_id = t.term_id
+	        where v.course_id = c.course_id and v.chapter_id = cp.chapter_id and v.term_id = t.term_id
 	            and v.week_id = w.week_id and v.classes_id = cls.classes_id and g.grade_id = cls.grade_id
 		    <if test="termId != null">
                 and v.term_id = #{termId}
@@ -55,6 +56,9 @@
             </if>
             <if test="gradeId != null">
                 and g.grade_id = #{gradeId}
+            </if>
+            <if test="isAble != null">
+                and v.is_able = #{isAble}
             </if>
             <if test="termName != null">
                 and t.term_name like '%${termName}%'
@@ -75,12 +79,17 @@
     </select>
 
     <insert id="addVideo" useGeneratedKeys="true" keyProperty="videoId" parameterType="com.mhys.cyxy.domain.Video">
-        INSERT INTO video(course_id, chapter_id,classes_id,term_id,week_id,should_watch_num,real_watch_num)
-	        VALUES(#{courseId},#{chapterId},#{classesId},#{termId},#{weekId},#{shouldWatchNum},#{realWatchNum})
+        INSERT INTO video(course_id, chapter_id,classes_id,term_id,week_id,should_watch_num,real_watch_num,is_able)
+	        VALUES(#{courseId},#{chapterId},#{classesId},#{termId},#{weekId},#{shouldWatchNum},#{realWatchNum},#{isAble})
     </insert>
 
     <select id="selectVideoById" parameterType="java.lang.Integer" resultMap="videoVO">
-        select * from video where video_id = #{videoId};
+        select v.video_id, v.is_able, c.course_id, cp.chapter_id, cls.classes_id, t.term_id, w.week_id, g.grade_id,
+            v.should_watch_num, v.real_watch_num, c.course_name, cp.chapter_name, t.term_name, w.week_name, cls.classes_name, g.grade_name
+            from video v, course c, chapter cp, term t, `week` w, classes cls, grade g
+            where v.course_id = c.course_id and v.chapter_id = cp.chapter_id and v.term_id = t.term_id
+                and v.week_id = w.week_id and v.classes_id = cls.classes_id and g.grade_id = cls.grade_id
+                and video_id = #{videoId}
     </select>
 
     <update id="updateVideo" parameterType="com.mhys.cyxy.domain.Video">
@@ -106,15 +115,22 @@
         <if test="realWatchNum != 0">
             real_watch_num = #{realWatchNum},
         </if>
-            is_able = #{able}
+            is_able = #{isAble}
         where video_id = #{videoId}
     </update>
+
+    <delete id="deleteVideoById" parameterType="java.lang.Integer">
+        delete from video where video_id = #{videoId}
+    </delete>
 
     <resultMap id="videoVO" type="com.mhys.cyxy.domain.vo.VideoVO">
         <id column="video_id" jdbcType="INTEGER" property="videoId" />
         <result column="course_id" jdbcType="INTEGER" property="courseId" />
         <result column="chapter_id" jdbcType="INTEGER" property="chapterId" />
         <result column="classes_id" jdbcType="INTEGER" property="classesId" />
+        <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
+        <result column="term_id" jdbcType="INTEGER" property="termId" />
+        <result column="week_id" jdbcType="INTEGER" property="weekId" />
         <result column="rate" jdbcType="FLOAT" property="rate" />
         <result column="term_name" jdbcType="VARCHAR" property="termName" />
         <result column="week_name" jdbcType="VARCHAR" property="weekName" />
@@ -124,7 +140,7 @@
         <result column="chapter_name" jdbcType="VARCHAR" property="chapterName" />
         <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
         <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
-        <result column="is_able" jdbcType="TINYINT" property="able" />
+        <result column="is_able" jdbcType="INTEGER" property="isAble" />
     </resultMap>
 
 

@@ -9,6 +9,7 @@ public class VideoDTO extends PageDTO{
     private Integer classesId;
     private Integer courseId;
     private Integer gradeId;
+    private Integer isAble;
 
     private String termName;
     private String weekName;

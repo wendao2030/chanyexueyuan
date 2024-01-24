@@ -13,8 +13,8 @@ public interface IVideoService {
     public List<VideoVO> getVideoRateByClasses(Integer termId, Integer weekId);
     public List<VideoVO> getVideoRateByGrade(Integer termId, Integer weekId);
     public List<VideoVO> getVideoRateByCourse(Integer gradeId);
-
     PageInfo<VideoVO> selectAllVideoByPage(VideoDTO videoDTO);
-
     boolean addVideo(Video video);
+    boolean deleteVideoById(Integer videoId);
+    VideoVO selectVideoById(Integer videoId);
 }

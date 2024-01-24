@@ -15,5 +15,5 @@ public class Video {
     private float rate;
     private int shouldWatchNum;
     private int realWatchNum;
-    private boolean able;
+    private int isAble;
 }

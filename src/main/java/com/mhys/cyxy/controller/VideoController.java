@@ -6,6 +6,7 @@ import com.mhys.cyxy.domain.Video;
 import com.mhys.cyxy.domain.dto.VideoDTO;
 import com.mhys.cyxy.domain.vo.VideoVO;
 import com.mhys.cyxy.service.IVideoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 @CrossOrigin
 @Controller
 @RequestMapping("/liuzhi")
@@ -63,6 +65,26 @@ public class VideoController {
     public ResponseData<Object> selectAllVideoByPage(@RequestBody Video video){
         boolean result = videoService.addVideo(video);
         return new ResponseData<>(result);
+    }
+
+    /*根据id删除*/
+    @ResponseBody
+    @PostMapping("/deleteVideoById")
+    public ResponseData<Object> deleteVideoById(@RequestParam(value = "videoId",required = true) Integer videoId){
+        boolean result = videoService.deleteVideoById(videoId);
+        if(result){
+            log.warn("删除一条moot观看记录");
+        }
+        return new ResponseData<>(result);
+    }
+
+    /*根据id查询*/
+    @ResponseBody
+    @RequestMapping("/selectVideoById")
+    public ResponseData<VideoVO> selectVideoById(@RequestParam(value = "videoId",required = true) Integer videoId){
+        VideoVO videoVO = videoService.selectVideoById(videoId);
+        log.info("根据id查询moot观看记录");
+        return new ResponseData<>(videoVO);
     }
 
 }

@@ -11,15 +11,15 @@ public class VideoVO {
     private int courseId;
     private int chapterId;
     private int classesId;
+    private int gradeId;
     private int termId;
     private int weekId;
-    private boolean able;
+    private int isAble;
 
     private float rate;
     private int shouldWatchNum;
     private int realWatchNum;
 
-    private float avg;
     private String termName;
     private String weekName;
     private String courseName;

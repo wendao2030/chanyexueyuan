@@ -37,4 +37,7 @@ public interface VideoMapper {
 
     /*修改*/
     public int updateVideo(Video video);
+
+    /*删除*/
+    public int deleteVideoById(@Param("videoId") Integer videoId);
 }

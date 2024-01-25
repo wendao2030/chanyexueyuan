@@ -15,23 +15,30 @@
     </select>
 
     <select id="selectAllTaskResultByPage" parameterType="com.mhys.cyxy.domain.dto.PracticalTaskDTO" resultMap="taskResultVO">
-        select p.practical_task_id, c.course_id,cp.chapter_id,t.term_id,w.week_id,cls.classes_id, tu.tutor_id, l.lecturer_id,
+        select p.practical_task_id, c.course_id,cp.chapter_id,t.term_id,w.week_id,g.grade_id,cls.classes_id, tu.tutor_id, l.lecturer_id,
             p.should_fulfil_num, p.real_fulfil_num, (p.real_fulfil_num/p.should_fulfil_num) rate, p.is_able,
-            c.course_name, cp.chapter_name, t.term_name, cls.classes_name, w.week_name, tu.tutor_name, l.lecturer_name
-            from practical_task p, course c, chapter cp, term t, `week` w, classes cls, tutor tu, lecturer l
+            c.course_name, cp.chapter_name, t.term_name,g.grade_name,cls.classes_name, w.week_name, tu.tutor_name, l.lecturer_name
+            from practical_task p, course c, chapter cp, term t, `week` w, classes cls, grade g, tutor tu, lecturer l
 	        where p.course_id = c.course_id and p.chapter_id = cp.chapter_id and p.term_id = t.term_id
-	        and p.week_id = w.week_id and p.classes_id = cls.classes_id and p.tutor_id = tu.tutor_id and p.lecturer_id = l.lecturer_id
+	        and p.week_id = w.week_id and p.classes_id = cls.classes_id and g.grade_id = cls.grade_id
+	        and p.tutor_id = tu.tutor_id and p.lecturer_id = l.lecturer_id
             <if test="termId != null">
                 and t.term_id = #{termId}
             </if>
             <if test="weekId != null">
                 and w.week_id = #{weekId}
             </if>
+            <if test="gradeId != null">
+                and g.grade_id = #{gradeId}
+            </if>
             <if test="classesId != null">
                 and cls.classes_id = #{classesId}
             </if>
             <if test="courseId != null">
                 and c.course_id = #{courseId}
+            </if>
+            <if test="chapterId != null">
+                and cp.chapter_id = #{chapterId}
             </if>
             <if test="tutorId != null">
                 and tu.tutor_id = #{tutorId}
@@ -48,11 +55,17 @@
             <if test="weekName != null">
                 and w.week_name like '%${weekName}%'
             </if>
+            <if test="gradeName != null">
+                and g.grade_name like '%${gradeName}%'
+            </if>
             <if test="classesName != null">
                 and cls.classes_name like '%${classesName}%'
             </if>
             <if test="courseName != null">
                 and c.course_name like '%${courseName}%'
+            </if>
+            <if test="chapterName != null">
+                and cp.chapter_name like '%${chapterName}%'
             </if>
             <if test="tutorName != null">
                 and tu.tutor_name like '%${tutorName}%'
@@ -80,12 +93,13 @@
     </delete>
 
     <select id="selectTaskResultById" parameterType="java.lang.Integer" resultMap="taskResultVO">
-        select p.practical_task_id, c.course_id,cp.chapter_id,t.term_id,w.week_id,cls.classes_id, tu.tutor_id, l.lecturer_id,
+        select p.practical_task_id, c.course_id,cp.chapter_id,t.term_id,w.week_id,g.grade_id, cls.classes_id, tu.tutor_id, l.lecturer_id,
             p.should_fulfil_num, p.real_fulfil_num, (p.real_fulfil_num/p.should_fulfil_num) rate, p.is_able,
-            c.course_name, cp.chapter_name, t.term_name, cls.classes_name, w.week_name, tu.tutor_name, l.lecturer_name
-            from practical_task p, course c, chapter cp, term t, `week` w, classes cls, tutor tu, lecturer l
+            c.course_name, cp.chapter_name, t.term_name,g.grade_name, cls.classes_name, w.week_name, tu.tutor_name, l.lecturer_name
+            from practical_task p, course c, chapter cp, term t, `week` w, grade g, classes cls, tutor tu, lecturer l
 	        where p.course_id = c.course_id and p.chapter_id = cp.chapter_id and p.term_id = t.term_id
-	        and p.week_id = w.week_id and p.classes_id = cls.classes_id and p.tutor_id = tu.tutor_id and p.lecturer_id = l.lecturer_id
+	        and p.week_id = w.week_id and g.grade_id = cls.grade_id and p.classes_id = cls.classes_id
+	        and p.tutor_id = tu.tutor_id and p.lecturer_id = l.lecturer_id
             and p.practical_task_id = #{practicalTaskId}
     </select>
 
@@ -128,6 +142,7 @@
         <result column="chapter_id" jdbcType="INTEGER" property="chapterId" />
         <result column="week_id" jdbcType="INTEGER" property="weekId" />
         <result column="term_id" jdbcType="INTEGER" property="termId" />
+        <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
         <result column="classes_id" jdbcType="INTEGER" property="classesId" />
         <result column="tutor_id" jdbcType="INTEGER" property="tutorId" />
         <result column="lecturer_id" jdbcType="INTEGER" property="lecturerId" />
@@ -135,11 +150,12 @@
         <result column="real_fulfil_num" jdbcType="INTEGER" property="realFulfilNum" />
         <result column="is_able" jdbcType="INTEGER" property="isAble" />
         <result column="rate" jdbcType="FLOAT" property="rate" />
+        <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
         <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
         <result column="term_name" jdbcType="VARCHAR" property="termName" />
         <result column="week_name" jdbcType="VARCHAR" property="weekName" />
+        <result column="course_name" jdbcType="VARCHAR" property="courseName" />
         <result column="chapter_name" jdbcType="VARCHAR" property="chapterName" />
-        <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
         <result column="tutor_name" jdbcType="VARCHAR" property="tutorName" />
         <result column="lecturer_name" jdbcType="VARCHAR" property="lecturerName" />
     </resultMap>

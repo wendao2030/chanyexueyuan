@@ -15,6 +15,8 @@ public class VideoVO {
     private int termId;
     private int weekId;
     private int isAble;
+    private int tutorId;
+    private int lecturerId;
 
     private float rate;
     private int shouldWatchNum;
@@ -24,8 +26,10 @@ public class VideoVO {
     private String weekName;
     private String courseName;
     private String chapterName;
-    private String classesName;
     private String gradeName;
+    private String classesName;
+    private String tutorName;
+    private String lecturerName;
 
     private int videoDayRange;
 }

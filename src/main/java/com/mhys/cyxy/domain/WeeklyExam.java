@@ -11,12 +11,13 @@ public class WeeklyExam {
     private int weekId;
     private int lecturerId;
     private int tutorId;
+    private int isAble;
 
-    private int lt60;
-    private int gt60Lt70;
-    private int gt70Lt80;
-    private int gt80Lt90;
-    private int gt90Lt100;
+    private Integer lt60;
+    private Integer gt60Lt70;
+    private Integer gt70Lt80;
+    private Integer gt80Lt90;
+    private Integer gt90Lt100;
 
-    private int studentsNum;
+    private Integer studentsNum;
 }

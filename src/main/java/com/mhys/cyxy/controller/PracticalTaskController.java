@@ -33,7 +33,6 @@ public class PracticalTaskController {
         return practicalTaskService.getTaskResultByClasses(termId, weekId);
     }
 
-    /*条件分页查询所有moot观看情况，按照时间降序*/
     @ResponseBody
     @PostMapping("/selectAllTaskResultByPage")
     public ResponseData<PageInfo<PracticalTaskVO>> selectAllTaskResultByPage(@RequestBody PracticalTaskDTO practicalTaskDTO){

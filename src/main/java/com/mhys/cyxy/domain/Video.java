@@ -10,6 +10,8 @@ public class Video {
     private int courseId;
     private int chapterId;
     private int classesId;
+    private int tutorId;
+    private int lecturerId;
     private int termId;
     private int weekId;
     private float rate;

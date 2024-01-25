@@ -1,6 +1,10 @@
 package com.mhys.cyxy.mapper;
 
+import com.mhys.cyxy.domain.PracticalTask;
 import com.mhys.cyxy.domain.WeeklyExam;
+import com.mhys.cyxy.domain.dto.PracticalTaskDTO;
+import com.mhys.cyxy.domain.dto.WeeklyExamDTO;
+import com.mhys.cyxy.domain.vo.PracticalTaskVO;
 import com.mhys.cyxy.domain.vo.WeeklyExamVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,5 +18,9 @@ public interface WeeklyExamMapper {
     public WeeklyExamVO getAllExamResult(@Param("termId") Integer termId, @Param("weekId") Integer weekId);
     public int getMaxTerm();
     public int getMaxWeek();
-
+    public List<WeeklyExamVO> selectAllExamResultByPage(WeeklyExamDTO weeklyExamDTO);
+    WeeklyExamVO selectExamResultById(Integer examId);
+    public int updateWeeklyExam(WeeklyExam weeklyExam);
+    public int addWeeklyExam(WeeklyExam weeklyExam);
+    public int deleteWeeklyExamById(Integer examId);
 }

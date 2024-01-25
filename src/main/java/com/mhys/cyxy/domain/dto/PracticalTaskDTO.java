@@ -8,11 +8,13 @@ public class PracticalTaskDTO extends PageDTO {
     private Integer chapterId;
     private Integer termId;
     private Integer weekId;
+    private Integer gradeId;
     private Integer classesId;
-    private Integer lecturerId;
     private Integer tutorId;
+    private Integer lecturerId;
     private Integer isAble;
 
+    private String gradeName;
     private String classesName;
     private String termName;
     private String weekName;

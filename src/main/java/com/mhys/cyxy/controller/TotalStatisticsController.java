@@ -1,7 +1,9 @@
 package com.mhys.cyxy.controller;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.mhys.cyxy.domain.ResponseData;
 import com.mhys.cyxy.domain.vo.PracticalTaskVO;
+import com.mhys.cyxy.domain.vo.VideoVO;
 import com.mhys.cyxy.service.ITotalStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,8 @@ public class TotalStatisticsController {
 
     @RequestMapping("/getDicMsg")
     @ResponseBody
-    public JSONObject getDicMsg(){
-        return totalStatisticsService.getDicMsg();
+    public ResponseData<JSONObject> getDicMsg(){
+        JSONObject jsObject = totalStatisticsService.getDicMsg();
+        return new ResponseData<>(jsObject);
     }
 }

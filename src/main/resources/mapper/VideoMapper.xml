@@ -73,7 +73,7 @@
                 and c.course_name like '%${courseName}%'
             </if>
             <if test="gradeName != null">
-                and c.grade_name like '%${gradeName}%'
+                and g.grade_name like '%${gradeName}%'
             </if>
 		    order by v.video_id desc
     </select>

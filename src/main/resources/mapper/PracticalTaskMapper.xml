@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mhys.cyxy.mapper.PraticalTaskMapper">
+<mapper namespace="com.mhys.cyxy.mapper.PracticalTaskMapper">
     <select id="getTaskResultByClasses" resultMap="taskResultVO">
-        select  sum(p.real_fulfil_num)/sum(p.should_fulfil_num) rate, c.classes_name from pratical_task p, classes c, grade g
+        select  sum(p.real_fulfil_num)/sum(p.should_fulfil_num) rate, c.classes_name from practical_task p, classes c, grade g
 	        where p.classes_id = c.classes_id and c.grade_id = g.grade_id
 		        and p.term_id = #{termId} and p.week_id = #{weekId}
 		        GROUP BY classes_name;
@@ -10,22 +10,138 @@
 
     <select id="getAllTaskResult" resultMap="taskResultVO">
         select sum(p.should_fulfil_num), sum(p.real_fulfil_num),sum(p.real_fulfil_num)/sum(p.should_fulfil_num) rate
-            from pratical_task p
+            from practical_task p
 	        where p.term_id = #{termId} and p.week_id = #{weekId};
     </select>
 
+    <select id="selectAllTaskResultByPage" parameterType="com.mhys.cyxy.domain.dto.PracticalTaskDTO" resultMap="taskResultVO">
+        select p.practical_task_id, c.course_id,cp.chapter_id,t.term_id,w.week_id,cls.classes_id, tu.tutor_id, l.lecturer_id,
+            p.should_fulfil_num, p.real_fulfil_num, (p.real_fulfil_num/p.should_fulfil_num) rate, p.is_able,
+            c.course_name, cp.chapter_name, t.term_name, cls.classes_name, w.week_name, tu.tutor_name, l.lecturer_name
+            from practical_task p, course c, chapter cp, term t, `week` w, classes cls, tutor tu, lecturer l
+	        where p.course_id = c.course_id and p.chapter_id = cp.chapter_id and p.term_id = t.term_id
+	        and p.week_id = w.week_id and p.classes_id = cls.classes_id and p.tutor_id = tu.tutor_id and p.lecturer_id = l.lecturer_id
+            <if test="termId != null">
+                and t.term_id = #{termId}
+            </if>
+            <if test="weekId != null">
+                and w.week_id = #{weekId}
+            </if>
+            <if test="classesId != null">
+                and cls.classes_id = #{classesId}
+            </if>
+            <if test="courseId != null">
+                and c.course_id = #{courseId}
+            </if>
+            <if test="tutorId != null">
+                and tu.tutor_id = #{tutorId}
+            </if>
+            <if test="lecturerId != null">
+                and l.lecturer_id = #{lecturerId}
+            </if>
+            <if test="isAble != null">
+                and p.is_able = #{isAble}
+            </if>
+            <if test="termName != null">
+                and t.term_name like '%${termName}%'
+            </if>
+            <if test="weekName != null">
+                and w.week_name like '%${weekName}%'
+            </if>
+            <if test="classesName != null">
+                and cls.classes_name like '%${classesName}%'
+            </if>
+            <if test="courseName != null">
+                and c.course_name like '%${courseName}%'
+            </if>
+            <if test="tutorName != null">
+                and tu.tutor_name like '%${tutorName}%'
+            </if>
+            <if test="lecturerName != null">
+                and l.lecturer_name like '%${lecturerName}%'
+            </if>
+            order by p.practical_task_id desc
+    </select>
     <select id="getMaxTermId" resultType="java.lang.Integer">
-        select MAX(term_id) from pratical_task;
+        select MAX(term_id) from practical_task;
     </select>
 
     <select id="getMaxWeekId" resultType="java.lang.Integer">
-        select MAX(week_id) from pratical_task where term_id = (select MAX(term_id) from pratical_task);
+        select MAX(week_id) from practical_task where term_id = (select MAX(term_id) from practical_task);
     </select>
 
+    <insert id="addPracticalTask" useGeneratedKeys="true" keyProperty="practicalTaskId" parameterType="com.mhys.cyxy.domain.PracticalTask">
+        INSERT INTO practical_task(course_id, chapter_id,classes_id,term_id,week_id,lecturer_id,tutor_id,should_fulfil_num,real_fulfil_num,is_able)
+	        VALUES(#{courseId},#{chapterId},#{classesId},#{termId},#{weekId},#{lecturerId},#{tutorId},#{shouldFulfilNum},#{realFulfilNum},#{isAble})
+    </insert>
+
+    <delete id="deletePracticalTaskById" parameterType="java.lang.Integer">
+        delete from practical_task where practical_task_id = #{practicalTaskId}
+    </delete>
+
+    <select id="selectTaskResultById" parameterType="java.lang.Integer" resultMap="taskResultVO">
+        select p.practical_task_id, c.course_id,cp.chapter_id,t.term_id,w.week_id,cls.classes_id, tu.tutor_id, l.lecturer_id,
+            p.should_fulfil_num, p.real_fulfil_num, (p.real_fulfil_num/p.should_fulfil_num) rate, p.is_able,
+            c.course_name, cp.chapter_name, t.term_name, cls.classes_name, w.week_name, tu.tutor_name, l.lecturer_name
+            from practical_task p, course c, chapter cp, term t, `week` w, classes cls, tutor tu, lecturer l
+	        where p.course_id = c.course_id and p.chapter_id = cp.chapter_id and p.term_id = t.term_id
+	        and p.week_id = w.week_id and p.classes_id = cls.classes_id and p.tutor_id = tu.tutor_id and p.lecturer_id = l.lecturer_id
+            and p.practical_task_id = #{practicalTaskId}
+    </select>
+
+    <update id="updatePracticalTask" parameterType="com.mhys.cyxy.domain.PracticalTask">
+        update practical_task set
+        <if test="courseId != 0">
+            course_id = #{courseId},
+        </if>
+        <if test="chapterId != 0">
+            chapter_id = #{chapterId},
+        </if>
+        <if test="classesId != 0">
+            classes_id = #{classesId},
+        </if>
+        <if test="termId != 0">
+            term_id = #{termId},
+        </if>
+        <if test="weekId != 0">
+            week_id = #{weekId},
+        </if>
+        <if test="tutorId != 0">
+            tutor_id = #{tutorId},
+        </if>
+        <if test="lecturerId != 0">
+            lecturer_id = #{lecturerId},
+        </if>
+        <if test="shouldFulfilNum != 0">
+            should_fulfil_num = #{shouldFulfilNum},
+        </if>
+        <if test="realFulfilNum != 0">
+            real_fulfil_num = #{realFulfilNum},
+        </if>
+        is_able = #{isAble}
+        where practical_task_id = #{practicalTaskId}
+    </update>
+
     <resultMap id="taskResultVO" type="com.mhys.cyxy.domain.vo.PracticalTaskVO">
+        <result column="practical_task_id" jdbcType="INTEGER" property="practicalTaskId" />
+        <result column="course_id" jdbcType="INTEGER" property="courseId" />
+        <result column="chapter_id" jdbcType="INTEGER" property="chapterId" />
+        <result column="week_id" jdbcType="INTEGER" property="weekId" />
+        <result column="term_id" jdbcType="INTEGER" property="termId" />
+        <result column="classes_id" jdbcType="INTEGER" property="classesId" />
+        <result column="tutor_id" jdbcType="INTEGER" property="tutorId" />
+        <result column="lecturer_id" jdbcType="INTEGER" property="lecturerId" />
+        <result column="should_fulfil_num" jdbcType="INTEGER" property="shouldFulfilNum" />
+        <result column="real_fulfil_num" jdbcType="INTEGER" property="realFulfilNum" />
+        <result column="is_able" jdbcType="INTEGER" property="isAble" />
         <result column="rate" jdbcType="FLOAT" property="rate" />
         <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
-        <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
+        <result column="term_name" jdbcType="VARCHAR" property="termName" />
+        <result column="week_name" jdbcType="VARCHAR" property="weekName" />
+        <result column="chapter_name" jdbcType="VARCHAR" property="chapterName" />
+        <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
+        <result column="tutor_name" jdbcType="VARCHAR" property="tutorName" />
+        <result column="lecturer_name" jdbcType="VARCHAR" property="lecturerName" />
     </resultMap>
 
 

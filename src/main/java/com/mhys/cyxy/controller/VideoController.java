@@ -62,7 +62,7 @@ public class VideoController {
     /*新增和修改一条记录*/
     @ResponseBody
     @PostMapping("/addVideo")
-    public ResponseData<Object> selectAllVideoByPage(@RequestBody Video video){
+    public ResponseData<Object> addVideo(@RequestBody Video video){
         boolean result = videoService.addVideo(video);
         return new ResponseData<>(result);
     }

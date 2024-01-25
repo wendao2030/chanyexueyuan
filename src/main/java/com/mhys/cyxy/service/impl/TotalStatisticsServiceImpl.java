@@ -22,7 +22,7 @@ public class TotalStatisticsServiceImpl implements ITotalStatisticsService {
     private VideoMapper videoMapper;
 
     @Resource
-    private PraticalTaskMapper praticalTaskMapper;
+    private PracticalTaskMapper practicalTaskMapper;
 
     @Resource
     private WeeklyExamMapper weeklyExamMapper;
@@ -74,7 +74,7 @@ public class TotalStatisticsServiceImpl implements ITotalStatisticsService {
         map.put("video",videoVO.getRate());
 
         //查询实践课完成率
-        PracticalTaskVO practicalTaskVO =  praticalTaskMapper.getAllTaskResult(praticalTaskMapper.getMaxTermId(),praticalTaskMapper.getMaxWeekId());
+        PracticalTaskVO practicalTaskVO =  practicalTaskMapper.getAllTaskResult(practicalTaskMapper.getMaxTermId(),practicalTaskMapper.getMaxWeekId());
         map.put("praticalTask",practicalTaskVO.getRate());
 
         //查询周测合格率

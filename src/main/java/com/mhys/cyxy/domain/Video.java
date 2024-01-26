@@ -6,16 +6,16 @@ import java.time.LocalDate;
 
 @Data
 public class Video {
-    private int videoId;
-    private int courseId;
-    private int chapterId;
-    private int classesId;
-    private int tutorId;
-    private int lecturerId;
-    private int termId;
-    private int weekId;
-    private float rate;
-    private int shouldWatchNum;
-    private int realWatchNum;
-    private int isAble;
+    private Integer videoId;
+    private Integer courseId;
+    private Integer chapterId;
+    private Integer classesId;
+    private Integer tutorId;
+    private Integer lecturerId;
+    private Integer termId;
+    private Integer weekId;
+    private Float rate;
+    private Integer shouldWatchNum;
+    private Integer realWatchNum;
+    private Integer isAble;
 }

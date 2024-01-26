@@ -8,10 +8,10 @@ import java.util.Date;
 
 @Data
 public class AttendanceVO{
-    private int gradeId;
-    private int classesId;
-    private int lecturerId;
-    private int tutorId;
+    private Integer gradeId;
+    private Integer classesId;
+    private Integer lecturerId;
+    private Integer tutorId;
 
     private Date time;
 
@@ -20,9 +20,13 @@ public class AttendanceVO{
     private String classesName;
     private String gradeName;
 
-    private int shouldAttendSum;
-    private int realAttendSum;
-    private float rate;
+    private Integer shouldAttendNum;
+    private Integer realAttendNum;
+    private String nonAttendDesc;
+    private Integer shouldAttendSum;
+    private Integer realAttendSum;
+    private Float rate;
+    private Integer isAble;
 
-    private int attendanceDayRange;
+    private Integer attendanceDayRange;
 }

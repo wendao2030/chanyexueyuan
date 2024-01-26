@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class TutorEventVO {
-    private int tutorEventId;
-    private int tutorId;
+    private Integer tutorEventId;
+    private Integer tutorId;
     private String tutorEventName;
     private String tutorEventContent;
 
     private String tutorName;
-    private int eventNum;
+    private Integer eventNum;
 }

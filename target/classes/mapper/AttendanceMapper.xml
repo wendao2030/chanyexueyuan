@@ -55,9 +55,97 @@
         select MAX(time) from attendance;
     </select>
 
+    <select id="selectAllAttendanceByPage" parameterType="com.mhys.cyxy.domain.dto.AttendanceDTO" resultMap="attendanceVO">
+        select a.attendance_id, a.time,g.grade_id, cls.classes_id, l.lecturer_id, tu.tutor_id, a.should_attend_num,
+            a.real_attend_num, (a.real_attend_num/a.should_attend_num) rate, a.non_attend_desc,
+            a.is_able, g.grade_name, cls.classes_name,l.lecturer_name,tu.tutor_name
+	        from attendance a, grade g, classes cls, lecturer l, tutor tu
+		    where a.classes_id = cls.classes_id and g.grade_id = cls.grade_id and a.lecturer_id = l.lecturer_id and a.tutor_id = tu.tutor_id
+            <if test="gradeId != null">
+                and g.grade_id = #{gradeId}
+            </if>
+            <if test="classesId != null">
+                and cls.classes_id = #{classesId}
+            </if>
+            <if test="tutorId != null">
+                and tu.tutor_id = #{tutorId}
+            </if>
+            <if test="lecturerId != null">
+                and l.lecturer_id = #{lecturerId}
+            </if>
+            <if test="isAble != null">
+                and a.is_able = #{isAble}
+            </if>
+            <if test="gradeName != null">
+                and g.grade_name like '%${gradeName}%'
+            </if>
+            <if test="classesName != null">
+                and cls.classes_name like '%${classesName}%'
+            </if>
+            <if test="tutorName != null">
+                and tu.tutor_name like '%${tutorName}%'
+            </if>
+            <if test="lecturerName != null">
+                and l.lecturer_name like '%${lecturerName}%'
+            </if>
+            order by a.attendance_id desc
+
+    </select>
+
+    <select id="selectAttendanceById" parameterType="java.lang.Integer" resultMap="attendanceVO">
+        select a.attendance_id, a.time,g.grade_id, cls.classes_id, l.lecturer_id, tu.tutor_id, a.should_attend_num,
+            a.real_attend_num, (a.real_attend_num/a.should_attend_num) rate, a.non_attend_desc,
+            a.is_able, g.grade_name, cls.classes_name,l.lecturer_name,tu.tutor_name
+	        from attendance a, grade g, classes cls, lecturer l, tutor tu
+            where a.classes_id = cls.classes_id and g.grade_id = cls.grade_id and a.lecturer_id = l.lecturer_id and a.tutor_id = tu.tutor_id
+                and a.attendance_id = #{attendanceId}
+    </select>
+
+    <insert id="addAttendance" useGeneratedKeys="true" keyProperty="attendanceId" parameterType="com.mhys.cyxy.domain.Attendance">
+        insert into attendance(`time`,classes_id,lecturer_id,tutor_id,should_attend_num,real_attend_num,non_attend_desc,is_able)
+            value(#{time},#{classesId},#{lecturerId},#{tutorId},#{shouldAttendNum},#{realAttendNum},#{nonAttendDesc},#{isAble})
+    </insert>
+    <update id="updateAttendance" parameterType="com.mhys.cyxy.domain.Attendance">
+        update attendance set
+        <if test="time != null">
+            time = #{time},
+        </if>
+        <if test="classesId != 0">
+            classes_id = #{classesId},
+        </if>
+        <if test="lecturerId != 0">
+            lecturer_id = #{lecturerId},
+        </if>
+        <if test="tutorId != 0">
+            tutor_id = #{tutorId},
+        </if>
+        <if test="shouldAttendNum != null">
+            should_attend_num = #{shouldAttendNum},
+        </if>
+        <if test="realAttendNum != null">
+            real_attend_num = #{realAttendNum},
+        </if>
+        <if test="nonAttendDesc != null">
+            non_attend_desc = #{nonAttendDesc},
+        </if>
+        <if test="isAble != null">
+            is_able = #{isAble},
+        </if>
+        attendance_id = #{attendanceId}
+        where attendance_id = #{attendanceId}
+    </update>
+
+    <delete id="deleteAttendanceById" parameterType="java.lang.Integer">
+        delete from attendance where attendance_id = #{attendanceId}
+    </delete>
+
     <resultMap id="attendanceVO" type="com.mhys.cyxy.domain.vo.AttendanceVO">
-        <id column="should_attend_sum" jdbcType="INTEGER" property="shouldAttendSum" />
+        <result column="should_attend_num" jdbcType="INTEGER" property="shouldAttendNum" />
+        <result column="real_attend_num" jdbcType="INTEGER" property="realAttendNum" />
+        <result column="non_attend_desc" jdbcType="VARCHAR" property="nonAttendDesc" />
+        <result column="should_attend_sum" jdbcType="INTEGER" property="shouldAttendSum" />
         <result column="real_attend_sum" jdbcType="INTEGER" property="realAttendSum" />
+        <result column="is_able" jdbcType="INTEGER" property="isAble" />
         <result column="rate" jdbcType="FLOAT" property="rate" />
         <result column="time" jdbcType="DATE" property="time" />
         <result column="grade_id" jdbcType="INTEGER" property="gradeId" />

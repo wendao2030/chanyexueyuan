@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Lecturer {
-    private int lectureId;
+    private Integer lectureId;
     private String lectureName;
 }

@@ -105,31 +105,31 @@
 
     <update id="updatePracticalTask" parameterType="com.mhys.cyxy.domain.PracticalTask">
         update practical_task set
-        <if test="courseId != 0">
+        <if test="courseId != null">
             course_id = #{courseId},
         </if>
-        <if test="chapterId != 0">
+        <if test="chapterId != null">
             chapter_id = #{chapterId},
         </if>
-        <if test="classesId != 0">
+        <if test="classesId != null">
             classes_id = #{classesId},
         </if>
-        <if test="termId != 0">
+        <if test="termId != null">
             term_id = #{termId},
         </if>
-        <if test="weekId != 0">
+        <if test="weekId != null">
             week_id = #{weekId},
         </if>
-        <if test="tutorId != 0">
+        <if test="tutorId != null">
             tutor_id = #{tutorId},
         </if>
-        <if test="lecturerId != 0">
+        <if test="lecturerId != null">
             lecturer_id = #{lecturerId},
         </if>
-        <if test="shouldFulfilNum != 0">
+        <if test="shouldFulfilNum != null">
             should_fulfil_num = #{shouldFulfilNum},
         </if>
-        <if test="realFulfilNum != 0">
+        <if test="realFulfilNum != null">
             real_fulfil_num = #{realFulfilNum},
         </if>
         is_able = #{isAble}

@@ -1,21 +1,22 @@
-package com.mhys.cyxy.domain;
+package com.mhys.cyxy.domain.dto;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /*出勤*/
 @Data
-public class Attendance {
+public class AttendanceDTO extends PageDTO {
     private Integer attendanceId;
     private LocalDate time;
     private Integer classesId;
     private Integer lecturerId;
     private Integer tutorId;
-    private Integer shouldAttendNum;
-    private Integer realAttendNum;
-    private String nonAttendDesc;
     private Integer isAble;
+    private Integer gradeId;
+
+    private String gradeName;
+    private String classesName;
+    private String lecturerName;
+    private String tutorName;
 }

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Grade {
-    private int gradeId;
+    private Integer gradeId;
     private String gradeName;
 }

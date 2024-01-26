@@ -1,6 +1,11 @@
 package com.mhys.cyxy.mapper;
 
+import com.mhys.cyxy.domain.Attendance;
+import com.mhys.cyxy.domain.PracticalTask;
+import com.mhys.cyxy.domain.dto.AttendanceDTO;
+import com.mhys.cyxy.domain.dto.PracticalTaskDTO;
 import com.mhys.cyxy.domain.vo.AttendanceVO;
+import com.mhys.cyxy.domain.vo.PracticalTaskVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,4 +31,14 @@ public interface AttendanceMapper {
     public AttendanceVO getAllAttendance(@Param("beginTime") LocalDate beginTime, @Param("endTime") LocalDate endTime);
     /*查询最近的日期*/
     public Date getLastDay();
+
+    public List<AttendanceVO> selectAllAttendanceByPage(AttendanceDTO attendanceDTO);
+
+    public AttendanceVO selectAttendanceById(int attendanceId);
+
+    public int updateAttendance(Attendance attendance);
+
+    public int addAttendance(Attendance attendance);
+
+    public int deleteAttendanceById(Integer attendanceId);
 }

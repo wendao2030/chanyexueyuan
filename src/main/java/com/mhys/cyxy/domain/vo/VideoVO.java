@@ -7,20 +7,20 @@ import java.time.LocalDate;
 @Data
 public class VideoVO {
 
-    private int videoId;
-    private int courseId;
-    private int chapterId;
-    private int classesId;
-    private int gradeId;
-    private int termId;
-    private int weekId;
-    private int isAble;
-    private int tutorId;
-    private int lecturerId;
+    private Integer videoId;
+    private Integer courseId;
+    private Integer chapterId;
+    private Integer classesId;
+    private Integer gradeId;
+    private Integer termId;
+    private Integer weekId;
+    private Integer isAble;
+    private Integer tutorId;
+    private Integer lecturerId;
 
-    private float rate;
-    private int shouldWatchNum;
-    private int realWatchNum;
+    private Float rate;
+    private Integer shouldWatchNum;
+    private Integer realWatchNum;
 
     private String termName;
     private String weekName;
@@ -31,5 +31,5 @@ public class VideoVO {
     private String tutorName;
     private String lecturerName;
 
-    private int videoDayRange;
+    private Integer videoDayRange;
 }

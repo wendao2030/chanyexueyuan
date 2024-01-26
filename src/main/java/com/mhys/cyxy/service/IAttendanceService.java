@@ -1,5 +1,8 @@
 package com.mhys.cyxy.service;
 
+import com.github.pagehelper.PageInfo;
+import com.mhys.cyxy.domain.Attendance;
+import com.mhys.cyxy.domain.dto.AttendanceDTO;
 import com.mhys.cyxy.domain.vo.AttendanceVO;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +19,8 @@ public interface IAttendanceService {
     List<AttendanceVO> getAttendanceByLecturer(LocalDate time);
     List<AttendanceVO> getAttendanceByClasses(LocalDate time);
     List<AttendanceVO> getAttendanceByWeek(LocalDate beginTime, LocalDate endTime);
+    PageInfo<AttendanceVO> selectAllAttendanceByPage(AttendanceDTO attendanceDTO);
+    AttendanceVO selectAttendanceById(Integer attendanceId);
+    boolean addAttendance(Attendance attendance);
+    boolean deleteAttendanceById(Integer attendanceId);
 }

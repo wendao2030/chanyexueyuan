@@ -56,7 +56,7 @@ public class WeeklyExamServiceImpl implements IWeeklyExamService {
 
     @Override
     public boolean addWeeklyExam(WeeklyExam weeklyExam) {
-        if(weeklyExam.getExamId() != 0) {
+        if(weeklyExam.getExamId() != null) {
             WeeklyExamVO vo = weeklyExamMapper.selectExamResultById(weeklyExam.getExamId());
             if(vo != null){
                 //修改

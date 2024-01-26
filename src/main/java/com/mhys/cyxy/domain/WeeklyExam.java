@@ -4,14 +4,14 @@ import lombok.Data;
 
 @Data
 public class WeeklyExam {
-    private int examId;
-    private int courseId;
-    private int classesId;
-    private int termId;
-    private int weekId;
-    private int lecturerId;
-    private int tutorId;
-    private int isAble;
+    private Integer examId;
+    private Integer courseId;
+    private Integer classesId;
+    private Integer termId;
+    private Integer weekId;
+    private Integer lecturerId;
+    private Integer tutorId;
+    private Integer isAble;
 
     private Integer lt60;
     private Integer gt60Lt70;

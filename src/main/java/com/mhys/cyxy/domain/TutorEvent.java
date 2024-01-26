@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class TutorEvent {
-    private int tutorEventId;
-    private int tutorId;
+    private Integer tutorEventId;
+    private Integer tutorId;
     private String tutorEventName;
     private String tutorEventContent;
 }

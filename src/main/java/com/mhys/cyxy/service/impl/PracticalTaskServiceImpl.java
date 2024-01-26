@@ -39,7 +39,7 @@ public class PracticalTaskServiceImpl implements IPracticalTaskService {
 
     @Override
     public boolean addPracticalTask(PracticalTask practicalTask) {
-        if(practicalTask.getPracticalTaskId() != 0) {
+        if(practicalTask.getPracticalTaskId() != null) {
             PracticalTaskVO vo = practicalTaskMapper.selectTaskResultById(practicalTask.getPracticalTaskId());
             if(vo != null){
                 //修改

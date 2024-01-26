@@ -116,37 +116,40 @@
 
     <update id="updateVideo" parameterType="com.mhys.cyxy.domain.Video">
         update video set
-        <if test="courseId != 0">
+        <if test="courseId != null">
             course_id = #{courseId},
         </if>
-        <if test="chapterId != 0">
+        <if test="chapterId != null">
             chapter_id = #{chapterId},
         </if>
-        <if test="classesId != 0">
+        <if test="classesId != null">
             classes_id = #{classesId},
         </if>
-        <if test="tutorId != 0">
+        <if test="tutorId != null">
             tutor_id = #{tutorId},
         </if>
-        <if test="lecturerId != 0">
+        <if test="lecturerId != null">
             lecturer_id = #{lecturerId},
         </if>
-        <if test="classesId != 0">
+        <if test="classesId != null">
             classes_id = #{classesId},
         </if>
-        <if test="termId != 0">
+        <if test="termId != null">
             term_id = #{termId},
         </if>
-        <if test="weekId != 0">
+        <if test="weekId != null">
             week_id = #{weekId},
         </if>
-        <if test="shouldWatchNum != 0">
+        <if test="shouldWatchNum != null">
             should_watch_num = #{shouldWatchNum},
         </if>
-        <if test="realWatchNum != 0">
+        <if test="realWatchNum != null">
             real_watch_num = #{realWatchNum},
         </if>
-            is_able = #{isAble}
+        <if test="isAble != null">
+            is_able = #{isAble},
+        </if>
+        video_id = #{videoId}
         where video_id = #{videoId}
     </update>
 

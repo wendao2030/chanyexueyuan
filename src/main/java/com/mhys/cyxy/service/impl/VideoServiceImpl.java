@@ -67,7 +67,7 @@ public class VideoServiceImpl implements IVideoService {
 
     @Override
     public boolean addVideo(Video video) {
-        if(video.getVideoId() != 0) {
+        if(video.getVideoId() != null) {
             VideoVO vo = videoMapper.selectVideoById(video.getVideoId());
             if(vo != null){
                 //修改

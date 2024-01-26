@@ -119,22 +119,22 @@
     <update id="updateWeeklyExam" parameterType="com.mhys.cyxy.domain.WeeklyExam">
         update weekly_exam
         set
-        <if test="courseId != 0">
+        <if test="courseId != null">
             course_id = #{courseId},
         </if>
-        <if test="classesId != 0">
+        <if test="classesId != null">
             classes_id = #{classesId},
         </if>
-        <if test="termId != 0">
+        <if test="termId != null">
             term_id = #{termId},
         </if>
-        <if test="weekId != 0">
+        <if test="weekId != null">
             week_id = #{weekId},
         </if>
-        <if test="tutorId != 0">
+        <if test="tutorId != null">
             tutor_id = #{tutorId},
         </if>
-        <if test="lecturerId != 0">
+        <if test="lecturerId != null">
             lecturer_id = #{lecturerId},
         </if>
         <if test="lt60 != null">
@@ -155,7 +155,10 @@
         <if test="studentsNum != null">
             students_num = #{studentsNum},
         </if>
-        is_able = #{isAble}
+        <if test="isAble != null">
+            is_able = #{isAble},
+        </if>
+        and exam_id = #{examId}
         where exam_id = #{examId}
     </update>
 

@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class WeeklyExamVO {
-    private int examId;
-    private int courseId;
-    private int gradeId;
-    private int classesId;
-    private int termId;
-    private int weekId;
-    private int lecturerId;
-    private int tutorId;
-    private int isAble;
+    private Integer examId;
+    private Integer courseId;
+    private Integer gradeId;
+    private Integer classesId;
+    private Integer termId;
+    private Integer weekId;
+    private Integer lecturerId;
+    private Integer tutorId;
+    private Integer isAble;
 
     private String termName;
     private String weekName;
@@ -21,19 +21,19 @@ public class WeeklyExamVO {
     private String classesName;
     private String lecturerName;
     private String tutorName;
-    private float rate;
+    private Float rate;
 
-    private int lt60;
-    private int gt60Lt70;
-    private int gt70Lt80;
-    private int gt80Lt90;
-    private int gt90Lt100;
-    private float lt60Rate;
-    private float gt60Lt70Rate;
-    private float gt70Lt80Rate;
-    private float gt80Lt90Rate;
-    private float gt90Lt100Rate;
-    private int studentsNum;
+    private Integer lt60;
+    private Integer gt60Lt70;
+    private Integer gt70Lt80;
+    private Integer gt80Lt90;
+    private Integer gt90Lt100;
+    private Float lt60Rate;
+    private Float gt60Lt70Rate;
+    private Float gt70Lt80Rate;
+    private Float gt80Lt90Rate;
+    private Float gt90Lt100Rate;
+    private Integer studentsNum;
 
-    private int ExamWeekRange;
+    private Integer ExamWeekRange;
 }

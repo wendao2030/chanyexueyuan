@@ -38,7 +38,7 @@
 
     <select id="selectAllVideoByPage" parameterType="com.mhys.cyxy.domain.dto.VideoDTO" resultMap="videoVO">
         select v.video_id, v.is_able, c.course_id, cp.chapter_id, cls.classes_id,tu.tutor_id,l.lecturer_id,t.term_id, w.week_id, g.grade_id,
-         v.should_watch_num, v.real_watch_num,(v.should_watch_num/v.real_watch_num) rate, c.course_name, cp.chapter_name, t.term_name, w.week_name, cls.classes_name, g.grade_name,
+         v.should_watch_num, v.real_watch_num,(v.real_watch_num/v.should_watch_num) rate, c.course_name, cp.chapter_name, t.term_name, w.week_name, cls.classes_name, g.grade_name,
 	        tu.tutor_name, l.lecturer_name
 	        from video v, course c, chapter cp, term t, `week` w, grade g, classes cls, tutor tu, lecturer l
 	        where v.course_id = c.course_id and v.chapter_id = cp.chapter_id and v.term_id = t.term_id
@@ -105,7 +105,7 @@
 
     <select id="selectVideoById" parameterType="java.lang.Integer" resultMap="videoVO">
     select v.video_id, v.is_able, c.course_id, cp.chapter_id, cls.classes_id,tu.tutor_id,l.lecturer_id,t.term_id, w.week_id, g.grade_id,
-             v.should_watch_num, v.real_watch_num,(v.should_watch_num/v.real_watch_num) rate, c.course_name, cp.chapter_name, t.term_name, w.week_name, cls.classes_name, g.grade_name,
+             v.should_watch_num, v.real_watch_num,(v.real_watch_num/v.should_watch_num) rate, c.course_name, cp.chapter_name, t.term_name, w.week_name, cls.classes_name, g.grade_name,
                 tu.tutor_name, l.lecturer_name
                 from video v, course c, chapter cp, term t, `week` w, grade g, classes cls, tutor tu, lecturer l
                 where v.course_id = c.course_id and v.chapter_id = cp.chapter_id and v.term_id = t.term_id

@@ -39,4 +39,11 @@ public class ResponseData<T> implements Serializable {
         response.message = "fail";
         return response;
     }
+
+    public static <T> ResponseData fail(String mesage){
+        ResponseData response = new ResponseData();
+        response.setCode(600);
+        response.message = mesage;
+        return response;
+    }
 }

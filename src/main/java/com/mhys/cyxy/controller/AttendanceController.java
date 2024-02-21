@@ -32,7 +32,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByTime")
     @ResponseBody
-    public ResponseData<AttendanceVO> getAttendanceByTime(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+    public ResponseData<AttendanceVO> getAttendanceByTime(@RequestParam(value = "time", required = false) LocalDate time){
         try {
             AttendanceVO result = attendanceService.getAttendanceByTime(time);
             log.info("按时间查询出勤记录成功");
@@ -47,7 +47,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByGrade")
     @ResponseBody
-    public ResponseData<List<AttendanceVO>> getAttendanceByGrade(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+    public ResponseData<List<AttendanceVO>> getAttendanceByGrade(@RequestParam(value = "time", required = false) LocalDate time) {
         try {
             List<AttendanceVO> list = attendanceService.getAttendanceByGrade(time);
             log.info("按年级查询出勤记录成功");
@@ -61,7 +61,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByTutor")
     @ResponseBody
-    public ResponseData<List<AttendanceVO>> getAttendanceByTutor(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+    public ResponseData<List<AttendanceVO>> getAttendanceByTutor(@RequestParam(value = "time", required = false) LocalDate time) {
         try {
             List<AttendanceVO> list = attendanceService.getAttendanceByTutor(time);
             log.info("按班主任查询出勤记录成功");
@@ -75,7 +75,7 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByLecturer")
     @ResponseBody
-    public ResponseData<List<AttendanceVO>> getAttendanceByLecturer(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+    public ResponseData<List<AttendanceVO>> getAttendanceByLecturer(@RequestParam(value = "time", required = false) LocalDate time) {
         try {
             List<AttendanceVO> list = attendanceService.getAttendanceByLecturer(time);
             log.info("按讲师查询出勤记录成功");
@@ -150,9 +150,18 @@ public class AttendanceController {
     @PostMapping("/addAttendance")
     public ResponseData<Object> addAttendance(@RequestBody Attendance attendance) {
         try {
+            if(attendance.getClassesId() == null || attendance.getLecturerId() ==null || attendance.getTutorId() == null
+                || attendance.getTime() == null){
+                return ResponseData.fail("参数传递缺失");
+            }
             boolean result = attendanceService.addAttendance(attendance);
-            log.info("新增或修改一条出勤记录");
-            return new ResponseData<>(result);
+            if (result){
+                log.info("新增或修改一条出勤记录成功");
+                return new ResponseData<>(result);
+            }else {
+                log.warn("新增或修改一条出勤记录失败");
+                return ResponseData.fail();
+            }
         } catch (Exception e) {
             log.error("新增和修改一条出勤记录接口报错");
             log.error(e.getMessage());

@@ -25,4 +25,18 @@ public class ResponseData<T> implements Serializable {
         response.setData(0);
         return response;
     }
+
+    public static <T> ResponseData error(){
+        ResponseData response = new ResponseData();
+        response.setCode(500);
+        response.message = "error";
+        return response;
+    }
+
+    public static <T> ResponseData fail(){
+        ResponseData response = new ResponseData();
+        response.setCode(600);
+        response.message = "fail";
+        return response;
+    }
 }

@@ -25,7 +25,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
     private AttendanceMapper attendanceMapper;
 
     @Override
-    public AttendanceVO getAttendanceByTime(LocalDate time) {
+    public AttendanceVO getAttendanceByTime(LocalDate time)  throws Exception{
         if(time == null){
             Date lastDay = attendanceMapper.getLastDay();
             ZoneId zoneId = ZoneId.systemDefault();
@@ -36,7 +36,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByGrade(LocalDate time) {
+    public List<AttendanceVO> getAttendanceByGrade(LocalDate time)  throws Exception{
         if(time == null){
             Date lastDay = attendanceMapper.getLastDay();
             ZoneId zoneId = ZoneId.systemDefault();
@@ -47,7 +47,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByTutor(LocalDate time) {
+    public List<AttendanceVO> getAttendanceByTutor(LocalDate time)  throws Exception{
         if(time == null){
             Date lastDay = attendanceMapper.getLastDay();
             ZoneId zoneId = ZoneId.systemDefault();
@@ -58,7 +58,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByLecturer(LocalDate time) {
+    public List<AttendanceVO> getAttendanceByLecturer(LocalDate time)  throws Exception{
         if(time == null){
             Date lastDay = attendanceMapper.getLastDay();
             ZoneId zoneId = ZoneId.systemDefault();
@@ -69,7 +69,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByClasses(LocalDate time) {
+    public List<AttendanceVO> getAttendanceByClasses(LocalDate time)  throws Exception{
         if(time == null){
             Date lastDay = attendanceMapper.getLastDay();
             ZoneId zoneId = ZoneId.systemDefault();
@@ -80,7 +80,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public List<AttendanceVO> getAttendanceByWeek(LocalDate beginTime, LocalDate endTime) {
+    public List<AttendanceVO> getAttendanceByWeek(LocalDate beginTime, LocalDate endTime)  throws Exception{
         if(endTime == null || endTime == null){
             Date lastDay = attendanceMapper.getLastDay();
             ZoneId zoneId = ZoneId.systemDefault();
@@ -94,19 +94,19 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public PageInfo<AttendanceVO> selectAllAttendanceByPage(AttendanceDTO attendanceDTO) {
+    public PageInfo<AttendanceVO> selectAllAttendanceByPage(AttendanceDTO attendanceDTO)  throws Exception{
         PageHelper.startPage(attendanceDTO.getPageNum(), attendanceDTO.getPageSize());
         List<AttendanceVO> list = attendanceMapper.selectAllAttendanceByPage(attendanceDTO);
         return new PageInfo<>(list);
     }
 
     @Override
-    public AttendanceVO selectAttendanceById(Integer attendanceId) {
+    public AttendanceVO selectAttendanceById(Integer attendanceId)  throws Exception{
         return attendanceMapper.selectAttendanceById(attendanceId);
     }
 
     @Override
-    public boolean addAttendance(Attendance attendance) {
+    public boolean addAttendance(Attendance attendance)  throws Exception{
         if(attendance.getAttendanceId() != null) {
             AttendanceVO vo = attendanceMapper.selectAttendanceById(attendance.getAttendanceId());
             if(vo != null){
@@ -119,7 +119,7 @@ public class AttendanceServiceImpl implements IAttendanceService {
     }
 
     @Override
-    public boolean deleteAttendanceById(Integer attendanceId) {
+    public boolean deleteAttendanceById(Integer attendanceId)  throws Exception{
         return attendanceMapper.deleteAttendanceById(attendanceId) > 0;
     }
 

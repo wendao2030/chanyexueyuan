@@ -29,11 +29,11 @@
     </select>
 
     <select id="getMaxTermId" resultType="java.lang.Integer">
-        select MAX(term_id) from pratical_task;
+        select MAX(term_id) from video;
     </select>
 
     <select id="getMaxWeekId" resultType="java.lang.Integer">
-        select MAX(week_id) from pratical_task where term_id = (select MAX(term_id) from pratical_task);
+        select MAX(week_id) from video where term_id = (select MAX(term_id) from video);
     </select>
 
     <select id="selectAllVideoByPage" parameterType="com.mhys.cyxy.domain.dto.VideoDTO" resultMap="videoVO">

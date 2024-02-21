@@ -32,74 +32,146 @@ public class AttendanceController {
 
     @RequestMapping("/getAttendanceByTime")
     @ResponseBody
-    public AttendanceVO getAttendanceByTime(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
-        return attendanceService.getAttendanceByTime(time);
+    public ResponseData<AttendanceVO> getAttendanceByTime(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+        try {
+            AttendanceVO result = attendanceService.getAttendanceByTime(time);
+            log.info("按时间查询出勤记录成功");
+            return new ResponseData<>(result);
+        } catch (Exception e) {
+            log.error("根据时间查询出勤接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
+
     }
 
     @RequestMapping("/getAttendanceByGrade")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByGrade(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
-        return attendanceService.getAttendanceByGrade(time);
+    public ResponseData<List<AttendanceVO>> getAttendanceByGrade(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+        try {
+            List<AttendanceVO> list = attendanceService.getAttendanceByGrade(time);
+            log.info("按年级查询出勤记录成功");
+            return new ResponseData<>(list);
+        } catch (Exception e) {
+            log.error("根据年级查询出勤接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
     }
 
     @RequestMapping("/getAttendanceByTutor")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByTutor(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
-        return attendanceService.getAttendanceByTutor(time);
+    public ResponseData<List<AttendanceVO>> getAttendanceByTutor(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+        try {
+            List<AttendanceVO> list = attendanceService.getAttendanceByTutor(time);
+            log.info("按班主任查询出勤记录成功");
+            return new ResponseData<>(list);
+        } catch (Exception e) {
+            log.error("根据班主任查询出勤接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
     }
 
     @RequestMapping("/getAttendanceByLecturer")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByLecturer(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
-        return attendanceService.getAttendanceByLecturer(time);
+    public ResponseData<List<AttendanceVO>> getAttendanceByLecturer(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+        try {
+            List<AttendanceVO> list = attendanceService.getAttendanceByLecturer(time);
+            log.info("按讲师查询出勤记录成功");
+            return new ResponseData<>(list);
+        } catch (Exception e) {
+            log.error("根据讲师查询出勤接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
     }
 
     @RequestMapping("/getAttendanceByClasses")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByClasses(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
-        return attendanceService.getAttendanceByClasses(time);
+    public ResponseData<List<AttendanceVO>> getAttendanceByClasses(@RequestParam(value = "time", required = false) LocalDate time) throws ParseException {
+        try {
+            List<AttendanceVO> list = attendanceService.getAttendanceByClasses(time);
+            log.info("按班级查询出勤记录成功");
+            return new ResponseData<>(list);
+        } catch (Exception e) {
+            log.error("根据班级查询出勤接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
     }
 
     @RequestMapping("/getAttendanceByWeek")
     @ResponseBody
-    public List<AttendanceVO> getAttendanceByWeek(@RequestParam(value = "beginTime", required = false) LocalDate beginTime, @RequestParam(value = "endTime", required = false) LocalDate endTime) throws ParseException {
-        List<AttendanceVO> list = attendanceService.getAttendanceByWeek(beginTime, endTime);
-        list.stream().forEach(item->item.setAttendanceDayRange(ATTENDANCE_DAY_RANGE));
-        return list;
+    public ResponseData<List<AttendanceVO>> getAttendanceByWeek(@RequestParam(value = "beginTime", required = false) LocalDate beginTime, @RequestParam(value = "endTime", required = false) LocalDate endTime) throws ParseException {
+        try {
+            List<AttendanceVO> list = attendanceService.getAttendanceByWeek(beginTime, endTime);
+            list.stream().forEach(item -> item.setAttendanceDayRange(ATTENDANCE_DAY_RANGE));
+            log.info("查询一周内出勤记录成功");
+            return new ResponseData<>(list);
+        } catch (Exception e) {
+            log.error("查询一周内出勤接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
     }
 
     @ResponseBody
     @PostMapping("/selectAllAttendanceByPage")
-    public ResponseData<PageInfo<AttendanceVO>> selectAllAttendanceByPage(@RequestBody AttendanceDTO attendanceDTO){
-        PageInfo<AttendanceVO> pageInfo = attendanceService.selectAllAttendanceByPage(attendanceDTO);
-        return new ResponseData<>(pageInfo);
+    public ResponseData<PageInfo<AttendanceVO>> selectAllAttendanceByPage(@RequestBody AttendanceDTO attendanceDTO) {
+        try {
+            PageInfo<AttendanceVO> pageInfo = attendanceService.selectAllAttendanceByPage(attendanceDTO);
+            log.info("条件分页查询出勤记录成功");
+            return new ResponseData<>(pageInfo);
+        } catch (Exception e) {
+            log.error("条件分页查询出勤接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
     }
 
     /*根据id查询*/
     @ResponseBody
     @RequestMapping("/selectAttendanceById")
-    public ResponseData<AttendanceVO> selectAttendanceById(@RequestParam(value = "attendanceId",required = true) Integer attendanceId){
-        AttendanceVO attendanceVO = attendanceService.selectAttendanceById(attendanceId);
-        log.info("根据id查询出勤情况");
-        return new ResponseData<>(attendanceVO);
+    public ResponseData<AttendanceVO> selectAttendanceById(@RequestParam(value = "attendanceId", required = true) Integer attendanceId) {
+        try {
+            AttendanceVO attendanceVO = attendanceService.selectAttendanceById(attendanceId);
+            log.info("根据id查询出勤记录");
+            return new ResponseData<>(attendanceVO);
+        } catch (Exception e) {
+            log.error("根据id查询出勤接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
     }
 
     /*新增和修改一条记录*/
     @ResponseBody
     @PostMapping("/addAttendance")
-    public ResponseData<Object> addAttendance(@RequestBody Attendance attendance){
-        boolean result = attendanceService.addAttendance(attendance);
-        return new ResponseData<>(result);
+    public ResponseData<Object> addAttendance(@RequestBody Attendance attendance) {
+        try {
+            boolean result = attendanceService.addAttendance(attendance);
+            log.info("新增或修改一条出勤记录");
+            return new ResponseData<>(result);
+        } catch (Exception e) {
+            log.error("新增和修改一条出勤记录接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
+        }
     }
 
     /*根据id删除*/
     @ResponseBody
     @PostMapping("/deleteAttendanceById")
-    public ResponseData<Object> deleteAttendanceById(@RequestParam(value = "attendanceId",required = true) Integer attendanceId){
-        boolean result = attendanceService.deleteAttendanceById(attendanceId);
-        if(result){
-            log.warn("删除一条出勤记录");
+    public ResponseData<Object> deleteAttendanceById(@RequestParam(value = "attendanceId", required = true) Integer attendanceId) {
+        try {
+            boolean result = attendanceService.deleteAttendanceById(attendanceId);
+            log.info("删除一条出勤记录");
+            return new ResponseData<>(result);
+        } catch (Exception e) {
+            log.error("根据id删除接口报错");
+            log.error(e.getMessage());
+            return ResponseData.error();
         }
-        return new ResponseData<>(result);
     }
 }

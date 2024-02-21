@@ -28,11 +28,11 @@
 	        where term_id = #{termId} and week_id = #{weekId}
     </select>
 
-    <select id="getMaxTerm" resultType="java.lang.Integer">
+    <select id="getMaxTermId" resultType="java.lang.Integer">
         select max(term_id) from weekly_exam;
     </select>
 
-    <select id="getMaxWeek" resultType="java.lang.Integer">
+    <select id="getMaxWeekId" resultType="java.lang.Integer">
         select max(week_id) from weekly_exam where term_id = (select max(term_id) from weekly_exam);
     </select>
 
@@ -158,7 +158,7 @@
         <if test="isAble != null">
             is_able = #{isAble},
         </if>
-        and exam_id = #{examId}
+         exam_id = #{examId}
         where exam_id = #{examId}
     </update>
 

@@ -13,14 +13,14 @@ import java.util.List;
 
 public interface IAttendanceService {
 
-    AttendanceVO getAttendanceByTime(LocalDate time);
-    List<AttendanceVO> getAttendanceByGrade(LocalDate time);
-    List<AttendanceVO> getAttendanceByTutor(LocalDate time);
-    List<AttendanceVO> getAttendanceByLecturer(LocalDate time);
-    List<AttendanceVO> getAttendanceByClasses(LocalDate time);
-    List<AttendanceVO> getAttendanceByWeek(LocalDate beginTime, LocalDate endTime);
-    PageInfo<AttendanceVO> selectAllAttendanceByPage(AttendanceDTO attendanceDTO);
-    AttendanceVO selectAttendanceById(Integer attendanceId);
-    boolean addAttendance(Attendance attendance);
-    boolean deleteAttendanceById(Integer attendanceId);
+    AttendanceVO getAttendanceByTime(LocalDate time) throws Exception;
+    List<AttendanceVO> getAttendanceByGrade(LocalDate time) throws Exception;
+    List<AttendanceVO> getAttendanceByTutor(LocalDate time) throws Exception;
+    List<AttendanceVO> getAttendanceByLecturer(LocalDate time) throws Exception;
+    List<AttendanceVO> getAttendanceByClasses(LocalDate time) throws Exception;
+    List<AttendanceVO> getAttendanceByWeek(LocalDate beginTime, LocalDate endTime) throws Exception;
+    PageInfo<AttendanceVO> selectAllAttendanceByPage(AttendanceDTO attendanceDTO) throws Exception;
+    AttendanceVO selectAttendanceById(Integer attendanceId) throws Exception;
+    boolean addAttendance(Attendance attendance) throws Exception;
+    boolean deleteAttendanceById(Integer attendanceId) throws Exception;
 }

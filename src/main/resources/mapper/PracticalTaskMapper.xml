@@ -132,7 +132,10 @@
         <if test="realFulfilNum != null">
             real_fulfil_num = #{realFulfilNum},
         </if>
-        is_able = #{isAble}
+        <if test="isAble != null">
+            is_able = #{isAble},
+        </if>
+        practical_task_id = #{practicalTaskId}
         where practical_task_id = #{practicalTaskId}
     </update>
 

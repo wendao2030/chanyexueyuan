@@ -22,10 +22,10 @@ public class WeeklyExamServiceImpl implements IWeeklyExamService {
     @Override
     public List<WeeklyExamVO> getExamResultByClasses(Integer termId, Integer weekId) {
         if (termId == null){
-            termId = weeklyExamMapper.getMaxTerm();
+            termId = weeklyExamMapper.getMaxTermId();
         }
         if(weekId == null){
-            weekId = weeklyExamMapper.getMaxWeek();
+            weekId = weeklyExamMapper.getMaxWeekId();
         }
         return weeklyExamMapper.getExamResultByClasses(termId, weekId);
     }
@@ -33,7 +33,7 @@ public class WeeklyExamServiceImpl implements IWeeklyExamService {
     @Override
     public List<WeeklyExamVO> getExamResultByWeek(Integer beginWeekId, Integer endWeekId) {
         if (endWeekId == null){
-            endWeekId = weeklyExamMapper.getMaxWeek();
+            endWeekId = weeklyExamMapper.getMaxWeekId();
         }
         if(beginWeekId == null){
             beginWeekId = endWeekId - 7;
